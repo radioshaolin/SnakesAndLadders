@@ -51,6 +51,10 @@ class PlayerRegistrationCoordinator: RootViewCoordinator {
 
 
 extension PlayerRegistrationCoordinator: PlayerRegistrationViewControllerDelegate {
+    func playerRegistrationViewControllerDidTapClose(_ playerRegistrationVC: PlayerRegistrationViewController) {
+        delegate?.playerRegistrationCoordinatorDidRequestCancel(playerRegistrationCoordinator: self)
+    }
+    
     func didReadyToPlay(playerRegistrationVC: PlayerRegistrationViewController) {
         print("Shazaaam!")
         let user = User(nickname: "Vano")

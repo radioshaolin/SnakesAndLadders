@@ -23,7 +23,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D540858D216FD3B8004BDE8C /* SneaksAndLadders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SneaksAndLadders.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D540858D216FD3B8004BDE8C /* SnakesAndLadders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnakesAndLadders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5408590216FD3B8004BDE8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5408592216FD3B8004BDE8C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		D5408595216FD3B8004BDE8C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/HomeViewController.storyboard; sourceTree = "<group>"; };
@@ -54,7 +54,7 @@
 		D5408584216FD3B8004BDE8C = {
 			isa = PBXGroup;
 			children = (
-				D540858F216FD3B8004BDE8C /* SneaksAndLadders */,
+				D540858F216FD3B8004BDE8C /* SnakesAndLadders */,
 				D540858E216FD3B8004BDE8C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -62,12 +62,12 @@
 		D540858E216FD3B8004BDE8C /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				D540858D216FD3B8004BDE8C /* SneaksAndLadders.app */,
+				D540858D216FD3B8004BDE8C /* SnakesAndLadders.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		D540858F216FD3B8004BDE8C /* SneaksAndLadders */ = {
+		D540858F216FD3B8004BDE8C /* SnakesAndLadders */ = {
 			isa = PBXGroup;
 			children = (
 				D54085B5216FE41B004BDE8C /* Core */,
@@ -76,7 +76,7 @@
 				D5D519052170BA3D0049E6AC /* Extensions */,
 				D54085B7216FE442004BDE8C /* Other */,
 			);
-			path = SneaksAndLadders;
+			path = SnakesAndLadders;
 			sourceTree = "<group>";
 		};
 		D54085AA216FE0BA004BDE8C /* Coordinator */ = {
@@ -131,9 +131,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		D540858C216FD3B8004BDE8C /* SneaksAndLadders */ = {
+		D540858C216FD3B8004BDE8C /* SnakesAndLadders */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = D540859F216FD3B9004BDE8C /* Build configuration list for PBXNativeTarget "SneaksAndLadders" */;
+			buildConfigurationList = D540859F216FD3B9004BDE8C /* Build configuration list for PBXNativeTarget "SnakesAndLadders" */;
 			buildPhases = (
 				D5408589216FD3B8004BDE8C /* Sources */,
 				D540858A216FD3B8004BDE8C /* Frameworks */,
@@ -143,9 +143,9 @@
 			);
 			dependencies = (
 			);
-			name = SneaksAndLadders;
+			name = SnakesAndLadders;
 			productName = SneaksAndLadders;
-			productReference = D540858D216FD3B8004BDE8C /* SneaksAndLadders.app */;
+			productReference = D540858D216FD3B8004BDE8C /* SnakesAndLadders.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -163,7 +163,7 @@
 					};
 				};
 			};
-			buildConfigurationList = D5408588216FD3B8004BDE8C /* Build configuration list for PBXProject "SneaksAndLadders" */;
+			buildConfigurationList = D5408588216FD3B8004BDE8C /* Build configuration list for PBXProject "SnakesAndLadders" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -176,7 +176,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				D540858C216FD3B8004BDE8C /* SneaksAndLadders */,
+				D540858C216FD3B8004BDE8C /* SnakesAndLadders */,
 			);
 		};
 /* End PBXProject section */
@@ -356,12 +356,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VX2YJU32EW;
-				INFOPLIST_FILE = "$(SRCROOT)/SneaksAndLadders/Other/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SnakesAndLadders/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.radioshaolin.SneaksAndLadders;
+				PRODUCT_BUNDLE_IDENTIFIER = com.radioshaolin.SnakesAndLadders;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -374,12 +374,12 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VX2YJU32EW;
-				INFOPLIST_FILE = "$(SRCROOT)/SneaksAndLadders/Other/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/SnakesAndLadders/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.radioshaolin.SneaksAndLadders;
+				PRODUCT_BUNDLE_IDENTIFIER = com.radioshaolin.SnakesAndLadders;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -389,7 +389,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		D5408588216FD3B8004BDE8C /* Build configuration list for PBXProject "SneaksAndLadders" */ = {
+		D5408588216FD3B8004BDE8C /* Build configuration list for PBXProject "SnakesAndLadders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D540859D216FD3B9004BDE8C /* Debug */,
@@ -398,7 +398,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		D540859F216FD3B9004BDE8C /* Build configuration list for PBXNativeTarget "SneaksAndLadders" */ = {
+		D540859F216FD3B9004BDE8C /* Build configuration list for PBXNativeTarget "SnakesAndLadders" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				D54085A0216FD3B9004BDE8C /* Debug */,
