@@ -9,16 +9,16 @@
 import UIKit
 
 final class HomeViewController: UIViewController {
-    
     var services: Services?
     weak var delegate: HomeViewControllerDelegate?
     
     @IBAction func newGameTapped(_ sender: Any) {
         delegate?.didTapStartNewGame(homeVC: self)
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+
         services?.dataService.users.append(User(nickname: "Vano"))
     }
 }
