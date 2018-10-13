@@ -9,7 +9,10 @@
 import UIKit
 
 final class GameViewController: UIViewController {
-
+    /// Injected properties
+    var services: Services?
+    weak var delegate: GameViewControllerDelegate?
+    
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var resultView: UIView!
     @IBOutlet weak var winnerNicknameLabel: UILabel!
@@ -19,18 +22,21 @@ final class GameViewController: UIViewController {
     @IBOutlet weak var turnButton: UIButton!
     
     @IBAction func gameOverTapped(_ sender: Any) {
+        delegate?.didGameOver()
     }
+    
     @IBAction func turnButtonTapped(_ sender: Any) {
+        delegate?.didMakeTurn(number: 5)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
 }
 
-protocol GameViewControllerDelegate {
-    
+protocol GameViewControllerDelegate: class {
+    func didMakeTurn(number: Int)
+    func didGameOver()
 }
 
 enum GameState {

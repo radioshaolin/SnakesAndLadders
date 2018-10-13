@@ -13,18 +13,19 @@ final class HomeViewController: UIViewController {
     weak var delegate: HomeViewControllerDelegate?
     
     @IBAction func newGameTapped(_ sender: Any) {
-        delegate?.didTapStartNewGame(homeVC: self)
+        delegate?.didTapStart(homeVC: self)
     }
     
+    @IBAction func joinGameTapped(_ sender: Any) {
+        delegate?.didTapJoin(homeVC: self)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        services?.dataService.users.append(User(nickname: "Vano"))
     }
 }
 
 protocol HomeViewControllerDelegate: class {
-    func didTapStartNewGame(homeVC: HomeViewController)
-    func didTapJoinToExistedGame(homeVC: HomeViewController)
+    func didTapStart(homeVC: HomeViewController)
+    func didTapJoin(homeVC: HomeViewController)
 }
 

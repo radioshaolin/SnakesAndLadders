@@ -10,6 +10,7 @@ import Foundation
 
 public struct Services {
     var dataService: DataService
+    var isHost: Bool?
     
     public init() {
         self.dataService = DataService()

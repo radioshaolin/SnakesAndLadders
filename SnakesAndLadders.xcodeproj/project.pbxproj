@@ -10,6 +10,7 @@
 		D51E18552171E919008FA108 /* GameViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D51E18542171E919008FA108 /* GameViewController.storyboard */; };
 		D51E18572171EA23008FA108 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51E18562171EA22008FA108 /* GameViewController.swift */; };
 		D51E185B217201A5008FA108 /* GameCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51E185A217201A5008FA108 /* GameCoordinator.swift */; };
+		D51E186121722F81008FA108 /* WaitAndStartViewControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51E186021722F81008FA108 /* WaitAndStartViewControler.swift */; };
 		D5408591216FD3B8004BDE8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5408590216FD3B8004BDE8C /* AppDelegate.swift */; };
 		D5408593216FD3B8004BDE8C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5408592216FD3B8004BDE8C /* HomeViewController.swift */; };
 		D5408596216FD3B8004BDE8C /* HomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5408594216FD3B8004BDE8C /* HomeViewController.storyboard */; };
@@ -29,6 +30,7 @@
 		D51E18542171E919008FA108 /* GameViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameViewController.storyboard; sourceTree = "<group>"; };
 		D51E18562171EA22008FA108 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		D51E185A217201A5008FA108 /* GameCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCoordinator.swift; sourceTree = "<group>"; };
+		D51E186021722F81008FA108 /* WaitAndStartViewControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitAndStartViewControler.swift; sourceTree = "<group>"; };
 		D540858D216FD3B8004BDE8C /* SnakesAndLadders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnakesAndLadders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5408590216FD3B8004BDE8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5408592216FD3B8004BDE8C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				D54085C4216FFA09004BDE8C /* PlayerRegistrationCoordinator.swift */,
 				D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */,
 				D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */,
+				D51E186021722F81008FA108 /* WaitAndStartViewControler.swift */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				D51E185B217201A5008FA108 /* GameCoordinator.swift in Sources */,
 				D54085AC216FE0D0004BDE8C /* Coordinator.swift in Sources */,
 				D54085B0216FE14B004BDE8C /* RootViewCoordinator.swift in Sources */,
+				D51E186121722F81008FA108 /* WaitAndStartViewControler.swift in Sources */,
 				D54085AE216FE110004BDE8C /* DataServices.swift in Sources */,
 				D54085C5216FFA09004BDE8C /* PlayerRegistrationCoordinator.swift in Sources */,
 				D5D519072170BA5F0049E6AC /* UIViewController+Storyboard.swift in Sources */,

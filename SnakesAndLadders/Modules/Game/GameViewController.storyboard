@@ -232,7 +232,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="jWq-DZ-OPI" firstAttribute="bottom" secondItem="YXK-eK-UCv" secondAttribute="bottom" constant="30" id="0h4-co-bE1"/>
                             <constraint firstItem="FPY-KI-nQg" firstAttribute="centerX" secondItem="mKl-WD-lc2" secondAttribute="centerX" id="6TB-s9-Jc7"/>

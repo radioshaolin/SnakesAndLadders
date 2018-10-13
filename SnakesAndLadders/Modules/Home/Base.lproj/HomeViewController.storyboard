@@ -35,6 +35,9 @@
                                 <rect key="frame" x="142" y="512.5" width="91" height="35"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                 <state key="normal" title="Join Game"/>
+                                <connections>
+                                    <action selector="joinGameTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xhK-xb-t0C"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
