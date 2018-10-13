@@ -18,11 +18,15 @@ final class PlayerRegistrationViewController: UIViewController {
     @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var waitView: UIView!
-    
-    
+    @IBOutlet weak var player1NicknameLabel: UILabel!
+    @IBOutlet weak var player2NicknameLabel: UILabel!
+    @IBOutlet weak var player3NicknameLabel: UILabel!
+    @IBOutlet weak var player4NicknameLabel: UILabel!
+
     @IBAction func nextButtonTapped(_ sender: Any) {
         let nickname = nicknameTextField.text ?? "unknown"
         let user = User(nickname: nickname)
+        player1NicknameLabel.text = nickname
         delegate?.didAdd(user: user)
         setupView(state: .waiting)
     }

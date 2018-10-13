@@ -102,6 +102,10 @@
                     </view>
                     <connections>
                         <outlet property="nicknameTextField" destination="JNM-58-vSq" id="tiU-Bm-RPf"/>
+                        <outlet property="player1NicknameLabel" destination="OuJ-Xd-hd1" id="6xj-Gq-xHo"/>
+                        <outlet property="player2NicknameLabel" destination="Y0D-zj-3SL" id="ZHG-dV-tay"/>
+                        <outlet property="player3NicknameLabel" destination="Ofh-wn-tPE" id="ByI-A7-D1n"/>
+                        <outlet property="player4NicknameLabel" destination="rKc-ss-JZ8" id="POe-HS-5E4"/>
                         <outlet property="startButton" destination="zWj-qr-ekC" id="wGD-2b-uij"/>
                         <outlet property="waitView" destination="ocz-wu-eZn" id="NWE-gf-0LN"/>
                     </connections>
