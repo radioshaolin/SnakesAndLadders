@@ -16,15 +16,12 @@ class AppCoordinator: RootViewCoordinator {
     
     // MARK: - Properties
     var services: Services
-    var childCoordinators: [Coordinator] = []
-    
     var rootViewController: UINavigationController {
         return self.navigationController
     }
-    
     lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController()
-        navigationController.isNavigationBarHidden = true
+        navigationController.isNavigationBarHidden = false
         return navigationController
     }()
     
@@ -33,38 +30,37 @@ class AppCoordinator: RootViewCoordinator {
         self.services = services
         self.window = window
         self.window?.rootViewController = self.rootViewController
+        self.window?.backgroundColor = .white
         self.window?.makeKeyAndVisible()
     }
     
     // MARK: - Functions
-    
     /// Starts the coordinator
     public func start() {
-        self.showHomeViewController()
+        showHomeViewController()
     }
     
     private func showHomeViewController() {
         let homeViewController = HomeViewController.fromStoryboard()
         homeViewController.services = services
         homeViewController.delegate = self
-        navigationController.pushViewController(homeViewController, animated: true)
+        rootViewController.pushViewController(homeViewController, animated: true)
     }
     
     func showPlayerRegistrationViewController() {
-        let playerRegistrationCoordintor = PlayerRegistrationCoordinator(with: self.services)
-        playerRegistrationCoordintor.delegate = self
-        playerRegistrationCoordintor.start()
-        addChildCoordinator(playerRegistrationCoordintor)
+        let playerRegistrationVC = PlayerRegistrationViewController.fromStoryboard()
+        playerRegistrationVC.services = services
+        playerRegistrationVC.delegate = self
+        rootViewController.pushViewController(playerRegistrationVC, animated: true)
     }
     
      func showGameViewController() {
         let gameVC = GameViewController.fromStoryboard()
         gameVC.services = services
         gameVC.delegate = self
-        navigationController.pushViewController(gameVC, animated: true)
+        rootViewController.pushViewController(gameVC, animated: true)
     }
 }
-
 
 extension AppCoordinator: HomeViewControllerDelegate {
     func didTapStart(homeVC: HomeViewController) {
@@ -78,19 +74,27 @@ extension AppCoordinator: HomeViewControllerDelegate {
     }
 }
 
-extension AppCoordinator: PlayerRegistrationCoordinatorDelegate {
-    func didTapBack(playerRegistrationCoordinator: PlayerRegistrationCoordinator, playerRegistrationVC: PlayerRegistrationViewController) {
-        removeChildCoordinator(playerRegistrationCoordinator)
-        rootViewController.popToRootViewController(animated: true)
+extension AppCoordinator: GameViewControllerDelegate {
+    func didMakeTurn(number: Int) {
+        
     }
     
-    func didStartGame(playerRegistrationCoordinator: PlayerRegistrationCoordinator, playerRegistrationVC: PlayerRegistrationViewController) {
-        removeChildCoordinator(playerRegistrationCoordinator)
-        rootViewController.popToRootViewController(animated: true)
+    func didGameOver() {
+        
     }
+}
 
-    
+extension AppCoordinator: PlayerRegistrationViewControllerDelegate {
     func didAddUserProfile(user: User) {
         services.dataService.users.append(user)
+    }
+    
+    func didTapBack(_ playerRegistrationVC: PlayerRegistrationViewController) {
+        rootViewController.popViewController(animated: true)
+    }
+    
+    func didStartGame(_ playerRegistrationVC: PlayerRegistrationViewController) {
+        rootViewController.popViewController(animated: true)
+        showGameViewController()
     }
 }
