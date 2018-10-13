@@ -21,7 +21,7 @@ class AppCoordinator: RootViewCoordinator {
     }
     lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController()
-        navigationController.isNavigationBarHidden = false
+        navigationController.isNavigationBarHidden = true
         return navigationController
     }()
     
@@ -51,6 +51,7 @@ class AppCoordinator: RootViewCoordinator {
         let playerRegistrationVC = PlayerRegistrationViewController.fromStoryboard()
         playerRegistrationVC.services = services
         playerRegistrationVC.delegate = self
+        navigationController.isNavigationBarHidden = false
         rootViewController.pushViewController(playerRegistrationVC, animated: true)
     }
     
@@ -58,6 +59,7 @@ class AppCoordinator: RootViewCoordinator {
         let gameVC = GameViewController.fromStoryboard()
         gameVC.services = services
         gameVC.delegate = self
+        navigationController.isNavigationBarHidden = false
         rootViewController.pushViewController(gameVC, animated: true)
     }
 }
@@ -85,12 +87,8 @@ extension AppCoordinator: GameViewControllerDelegate {
 }
 
 extension AppCoordinator: PlayerRegistrationViewControllerDelegate {
-    func didAddUserProfile(user: User) {
+    func didAdd(user: User) {
         services.dataService.users.append(user)
-    }
-    
-    func didTapBack(_ playerRegistrationVC: PlayerRegistrationViewController) {
-        rootViewController.popViewController(animated: true)
     }
     
     func didStartGame(_ playerRegistrationVC: PlayerRegistrationViewController) {

@@ -1,0 +1,8 @@
+query players($gameId: ID) {
+    players(gameId: $gameId){
+        id
+        game{
+            id
+        }
+    }
+}

@@ -15,16 +15,15 @@ final class PlayerRegistrationViewController: UIViewController {
     
     weak var delegate: PlayerRegistrationViewControllerDelegate?
     
+    @IBOutlet weak var nicknameTextField: UITextField!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var waitView: UIView!
     
-    @IBAction func doneButtonTapped(_ sender: Any) {
-        delegate?.didTapBack(self)
-    }
     
     @IBAction func nextButtonTapped(_ sender: Any) {
-        let user = User(nickname: "Black Lord")
-        delegate?.didAddUserProfile(user: user)
+        let nickname = nicknameTextField.text ?? "unknown"
+        let user = User(nickname: nickname)
+        delegate?.didAdd(user: user)
         setupView(state: .waiting)
     }
     
@@ -42,6 +41,7 @@ final class PlayerRegistrationViewController: UIViewController {
         switch state {
             case .registration: setupRegistrationState()
             case .waiting: setuptWaitingState()
+            case .ready: setupReadyState()
         }
     }
     
@@ -50,22 +50,28 @@ final class PlayerRegistrationViewController: UIViewController {
     }
     
     private func setuptWaitingState() {
-        guard let services = services,
-            let isHost = services.isHost else { return }
         waitView.isHidden = false
-        let startButtonTitle = isHost ? "Start" : "Wait for other players"
+        let startButtonTitle = "Wait for other players"
+        startButton.setTitle(startButtonTitle, for: .normal)
+        startButton.isEnabled = false
+    }
+    
+    private func setupReadyState() {
+        guard let services = services,
+        let isHost = services.isHost else { return }
+        let startButtonTitle = isHost ? "Start" : "Ready"
         startButton.setTitle(startButtonTitle, for: .normal)
         startButton.isEnabled = isHost
     }
 }
 
 protocol PlayerRegistrationViewControllerDelegate: class {
-    func didAddUserProfile(user: User)
-    func didTapBack(_ playerRegistrationVC: PlayerRegistrationViewController)
+    func didAdd(user: User)
     func didStartGame(_ playerRegistrationVC: PlayerRegistrationViewController)
 }
 
 enum RegistrationState {
     case registration
     case waiting
+    case ready
 }

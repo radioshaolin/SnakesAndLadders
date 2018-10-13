@@ -12,24 +12,11 @@ import UIKit
 public protocol Coordinator: class {
     /// The services that the coordinator can use
     var services: Services { get }
-    
-    /// The array containing any child Coordinators
-    var childCoordinators: [Coordinator] { get set }
 }
 
 public extension Coordinator {
     var rootNavigationController: UINavigationController {
         return UIApplication.shared.keyWindow!.rootViewController as! UINavigationController
-    }
-    
-    /// Add a child coordinator to the parent
-    public func addChildCoordinator(_ childCoordinator: Coordinator) {
-        self.childCoordinators.append(childCoordinator)
-    }
-    
-    /// Remove a child coordinator from the parent
-    public func removeChildCoordinator(_ childCoordinator: Coordinator) {
-        self.childCoordinators = self.childCoordinators.filter { $0 !== childCoordinator }
     }
 }
 

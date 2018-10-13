@@ -2,4 +2,4 @@
 const fs = require('fs');
 const path = require('path');
 
-module.exports.test = fs.readFileSync(path.join(__dirname, 'test.gql'), 'utf8');
+module.exports.players = fs.readFileSync(path.join(__dirname, 'players.gql'), 'utf8');

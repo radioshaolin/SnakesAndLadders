@@ -1,0 +1,8 @@
+mutation createGame{
+    createGame{
+        id
+        players{
+            id
+        }
+    }
+}
