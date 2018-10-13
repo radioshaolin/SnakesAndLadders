@@ -1,0 +1,6 @@
+projects:
+  api:
+    schemaPath: SnakesAndLadders/GraphQL/schema/api.graphql
+    extensions:
+      endpoints:
+        default: https://api.snakes-n-ladders.ga/
