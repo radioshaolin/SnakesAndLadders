@@ -3,3 +3,5 @@ SnakesAndLadders.xcodeproj/xcuserdata/
 SnakesAndLadders.xcodeproj/project.xcworkspace/xcuserdata/
 SnakesAndLadders.xcworkspace/xcuserdata
 Pods
+*.idea
+*.iml
