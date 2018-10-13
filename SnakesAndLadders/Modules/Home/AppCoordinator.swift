@@ -18,14 +18,15 @@ class AppCoordinator: RootViewCoordinator {
     var services: Services
     var childCoordinators: [Coordinator] = []
     
+    var rootViewController: UINavigationController {
+        return self.navigationController
+    }
+    
     lazy var navigationController: UINavigationController = {
         let navigationController = UINavigationController()
         navigationController.isNavigationBarHidden = true
         return navigationController
     }()
-    var rootViewController: UIViewController {
-        return self.navigationController
-    }
     
     // MARK: - Init
     public init(window: UIWindow?, services: Services) {
@@ -46,37 +47,50 @@ class AppCoordinator: RootViewCoordinator {
         let homeViewController = HomeViewController.fromStoryboard()
         homeViewController.services = services
         homeViewController.delegate = self
-        self.navigationController.viewControllers = [homeViewController]
+        navigationController.pushViewController(homeViewController, animated: true)
+    }
+    
+    func showPlayerRegistrationViewController() {
+        let playerRegistrationCoordintor = PlayerRegistrationCoordinator(with: self.services)
+        playerRegistrationCoordintor.delegate = self
+        playerRegistrationCoordintor.start()
+        addChildCoordinator(playerRegistrationCoordintor)
+    }
+    
+     func showGameViewController() {
+        let gameVC = GameViewController.fromStoryboard()
+        gameVC.services = services
+        gameVC.delegate = self
+        navigationController.pushViewController(gameVC, animated: true)
     }
 }
 
 
 extension AppCoordinator: HomeViewControllerDelegate {
-    func didTapStartNewGame(homeVC: HomeViewController) {
-        print("BOOOO!")
-        guard let services = homeVC.services else { return }
-        self.services = services
-        let playerRegistrationCoordintor = PlayerRegistrationCoordinator(with: self.services)
-        playerRegistrationCoordintor.delegate = self
-        playerRegistrationCoordintor.start()
-        self.addChildCoordinator(playerRegistrationCoordintor)
-        self.rootViewController.present(playerRegistrationCoordintor.rootViewController, animated: true, completion: nil)
+    func didTapStart(homeVC: HomeViewController) {
+        services.isHost = true
+        showPlayerRegistrationViewController()
     }
     
-    func didTapJoinToExistedGame(homeVC: HomeViewController) {
-        print("KABOOOM!")
+    func didTapJoin(homeVC: HomeViewController) {
+        services.isHost = false
+        showPlayerRegistrationViewController()
     }
 }
 
 extension AppCoordinator: PlayerRegistrationCoordinatorDelegate {
-    func playerRegistrationCoordinatorDidRequestCancel(playerRegistrationCoordinator: PlayerRegistrationCoordinator) {
-        playerRegistrationCoordinator.rootViewController.dismiss(animated: true)
+    func didTapBack(playerRegistrationCoordinator: PlayerRegistrationCoordinator, playerRegistrationVC: PlayerRegistrationViewController) {
         removeChildCoordinator(playerRegistrationCoordinator)
+        rootViewController.popToRootViewController(animated: true)
     }
     
-    func playerRegistrationCoordinator(playerRegistrationCoordinator: PlayerRegistrationCoordinator, didAdd userProfile: User) {
-        services.dataService.users.append(userProfile)
-        playerRegistrationCoordinator.rootViewController.dismiss(animated: true)
+    func didStartGame(playerRegistrationCoordinator: PlayerRegistrationCoordinator, playerRegistrationVC: PlayerRegistrationViewController) {
         removeChildCoordinator(playerRegistrationCoordinator)
+        rootViewController.popToRootViewController(animated: true)
+    }
+
+    
+    func didAddUserProfile(user: User) {
+        services.dataService.users.append(user)
     }
 }

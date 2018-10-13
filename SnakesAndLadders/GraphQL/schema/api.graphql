@@ -1,6 +1,22 @@
 # source: https://api.snakes-n-ladders.ga/
-# timestamp: Sat Oct 13 2018 17:14:10 GMT+0300 (Eastern European Summer Time)
+# timestamp: Sat Oct 13 2018 21:17:24 GMT+0300 (за східноєвропейським літнім часом)
+
+type Game {
+  id: ID!
+  players: [Player]
+}
+
+type Mutation {
+  createGame: Game
+  joinGame(id: ID): Game
+  createPlayer: Player!
+}
+
+type Player {
+  id: ID!
+  game: Game
+}
 
 type Query {
-  test: String
+  players(gameId: ID): [Player]
 }

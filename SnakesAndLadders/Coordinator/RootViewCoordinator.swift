@@ -11,7 +11,7 @@ import UIKit
 public protocol RootViewControllerProvider: class {
     // The coordinators 'rootViewController'. It helps to think of this as the view
     // controller that can be used to dismiss the coordinator from the view hierarchy.
-    var rootViewController: UIViewController { get }
+    var rootViewController: UINavigationController { get }
 }
 
 /// A Coordinator type that provides a root UIViewController

@@ -18,6 +18,10 @@ public protocol Coordinator: class {
 }
 
 public extension Coordinator {
+    var rootNavigationController: UINavigationController {
+        return UIApplication.shared.keyWindow!.rootViewController as! UINavigationController
+    }
+    
     /// Add a child coordinator to the parent
     public func addChildCoordinator(_ childCoordinator: Coordinator) {
         self.childCoordinators.append(childCoordinator)

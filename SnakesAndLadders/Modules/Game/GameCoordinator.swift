@@ -17,27 +17,23 @@ final class GameCoordinator: Coordinator {
     var services: Services
     var childCoordinators: [Coordinator] = []
     weak var delegate: GameCoordinatorDelegate?
-    
-    let rootViewController: UIViewController
-
-    
+ 
     // MARK: - Init
-    init(with services: Services, rootViewController: UIViewController) {
+    init(with services: Services) {
         self.services = services
-        self.rootViewController = rootViewController
     }
     
     // MARK: - Functions
     /// Starts the coordinator
     public func start() {
-        self.showGameViewController()
+        showGameViewController()
     }
     
     private func showGameViewController() {
         let gameVC = GameViewController.fromStoryboard()
         gameVC.services = services
         gameVC.delegate = self
-        rootViewController.present(gameVC, animated: true, completion: nil)
+        rootNavigationController.pushViewController(gameVC, animated: true)
     }
 }
 
@@ -49,6 +45,4 @@ extension GameCoordinator: GameViewControllerDelegate {
     func didGameOver() {
         delegate?.didFinishGame(coordinator: self)
     }
-    
-    
 }

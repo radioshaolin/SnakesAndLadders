@@ -114,6 +114,67 @@ apollo-cli@^0.4.0:
     node-fetch "^1.5.3"
     yargs "^5.0.0"
 
+apollo-codegen-core@^0.20.0:
+  version "0.20.1"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-core/-/apollo-codegen-core-0.20.1.tgz#56b6dd740f54b3f04e5db853ba1e1598388724c7"
+  integrity sha512-sanUIqXWyyDpxY3fYOVU+Hsxwxdj5fmn3Zcy6CcMGnWmh9o7tautQAuod2a63wrDs1jcNQcFq3EKIpeB+2xECw==
+  dependencies:
+    "@babel/generator" "7.0.0-beta.38"
+    "@babel/types" "7.0.0-beta.38"
+    common-tags "^1.5.1"
+    core-js "^2.5.3"
+    graphql-config "^2.0.1"
+
+apollo-codegen-flow-legacy@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-flow-legacy/-/apollo-codegen-flow-legacy-0.20.0.tgz#a9f1a0bb16c0fbde22b7dc7509b835d822861c67"
+  integrity sha512-kGjJNkkkob9gGYSIhwfdgOzkj0PuN4/QPhng4ckSaSCE+8E4Awyvk0P8LiYPKauHzHVjmJzxWLSG6kI0PQTNgA==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+
+apollo-codegen-flow@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-flow/-/apollo-codegen-flow-0.20.0.tgz#6d6219150235efd74620d421f42d96216292070d"
+  integrity sha512-XgKE19B0Q74PBLVqHP/77NcCFrcvrN9wi3CcotH+FV8BeHTjvpHlilTsQMmd2STPt19cCvY2Qtz0EOeLXTUQ2Q==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+    change-case "^3.0.1"
+    inflected "^2.0.3"
+
+apollo-codegen-scala@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-scala/-/apollo-codegen-scala-0.20.0.tgz#3ce29057cbb72f47806b27e6b780252dfa4fc349"
+  integrity sha512-NbnMOfUXXovlTGRj4mIZGXB9HvidQhwKfAmdYHox5peHPkjjsqEzxGCIuWCSnubWiCF2uHZnQoIkg4sXWf0KLw==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+    change-case "^3.0.1"
+    inflected "^2.0.3"
+
+apollo-codegen-swift@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-swift/-/apollo-codegen-swift-0.20.0.tgz#84a3f7b8d2c0f99fc65fb57acbe0abf9a9932f45"
+  integrity sha512-L9Y4StbXw0t/nuF+miz0ybSt/io6tsLc063Yeh1A8GCvhFFQyXE/yK0Rf3nO1Bl5Z9UZ5o8Aae9kK4GSWYIGNQ==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+    change-case "^3.0.1"
+    inflected "^2.0.3"
+
+apollo-codegen-typescript-legacy@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-typescript-legacy/-/apollo-codegen-typescript-legacy-0.20.0.tgz#e3dab94e6b8f0136f30d92a517c5dfd172452240"
+  integrity sha512-0/h5hce2FIGn6Y4+EHMeMINQxFwcgjw1vU+xV3KGaaEgyEAEQ3/n9pyz43M8mOm/JVgg8Eb4CtM1AtCkRQuFGw==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+
+apollo-codegen-typescript@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/apollo-codegen-typescript/-/apollo-codegen-typescript-0.20.0.tgz#a77eea6a68c0d09b29855667371bcd836cadfa78"
+  integrity sha512-mzlIJXz+5WPwzeALqRHHR9aPPEf6IlhSrjCawpUHmFU1NK9hgwbguYCEYZv9mKkYBUUgDY+9cGFK1cafJX70AQ==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+    change-case "^3.0.1"
+    inflected "^2.0.3"
+
 apollo-codegen@^0.19.1:
   version "0.19.1"
   resolved "https://yarnpkg.thesolid.studio/apollo-codegen/-/apollo-codegen-0.19.1.tgz#30444de019f453c0d6ec167072b8e11b52d7f92e"
@@ -128,6 +189,25 @@ apollo-codegen@^0.19.1:
     graphql "^0.13.1"
     graphql-config "^1.1.1"
     inflected "^2.0.3"
+    node-fetch "^1.7.3"
+    rimraf "^2.6.2"
+    source-map-support "^0.5.0"
+    yargs "^10.0.3"
+
+apollo-codegen@^0.20.2:
+  version "0.20.2"
+  resolved "https://registry.yarnpkg.com/apollo-codegen/-/apollo-codegen-0.20.2.tgz#960972828651de74e043f8f92f6f819025a50f49"
+  integrity sha512-f95fPGoQoj+XcR7JWgR35mUYrD7RWT4kHbtSLs3aHeRFOKUHEWW2nHUNTOtQbbIdLulRuxPQCTvSddT7fFwhrA==
+  dependencies:
+    apollo-codegen-core "^0.20.0"
+    apollo-codegen-flow "^0.20.0"
+    apollo-codegen-flow-legacy "^0.20.0"
+    apollo-codegen-scala "^0.20.0"
+    apollo-codegen-swift "^0.20.0"
+    apollo-codegen-typescript "^0.20.0"
+    apollo-codegen-typescript-legacy "^0.20.0"
+    glob "^7.1.2"
+    graphql "^0.13.1"
     node-fetch "^1.7.3"
     rimraf "^2.6.2"
     source-map-support "^0.5.0"
@@ -1050,7 +1130,7 @@ global-prefix@^1.0.1:
 
 global@^4.3.2:
   version "4.3.2"
-  resolved "https://yarnpkg.thesolid.studio/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
+  resolved "https://registry.yarnpkg.com/global/-/global-4.3.2.tgz#e76989268a6c74c38908b1305b10fc0e394e9d0f"
   integrity sha1-52mJJopsdMOJCLEwWxD8DjlOnQ8=
   dependencies:
     min-document "^2.19.0"

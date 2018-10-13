@@ -6,11 +6,12 @@
   "private": true,
   "dependencies": {
     "apollo-cli": "^0.4.0",
+    "apollo-codegen": "^0.20.2",
     "global": "^4.3.2",
     "gql-generator": "^1.0.4",
     "graphql-cli": "^2.16.5"
   },
-  "scripts":{
+  "scripts": {
     "schema": "./node_modules/.bin/gql get-schema",
     "gqlg": "./node_modules/.bin/gqlg --schemaFilePath ./SnakesAndLadders/GraphQL/schema/api.graphql --destDirPath ./SnakesAndLadders/GraphQL/graphql"
   }
