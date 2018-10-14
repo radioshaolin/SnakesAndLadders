@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Player Registration View Controller-->
+        <scene sceneID="SjB-5c-S0Y">
+            <objects>
+                <viewController storyboardIdentifier="PlayerRegistrationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="q1d-wx-b2b" customClass="PlayerRegistrationViewController" customModule="SnakesAndLadders" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8G5-fL-Pyb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-bg" translatesAutoresizingMaskIntoConstraints="NO" id="Xg5-Ya-7qa">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your nickname ..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JNM-58-vSq">
+                                <rect key="frame" x="38" y="338.5" width="299" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" returnKeyType="go" enablesReturnKeyAutomatically="YES" textContentType="nickname"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VvK-97-HPR">
+                                <rect key="frame" x="159" y="407" width="57" height="46"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="28"/>
+                                <state key="normal" title="Next">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="nextButtonTapped:" destination="q1d-wx-b2b" eventType="touchUpInside" id="eDD-zs-Tpd"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="0.35294117650000001" green="0.20784313730000001" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="JNM-58-vSq" firstAttribute="centerY" secondItem="8G5-fL-Pyb" secondAttribute="centerY" constant="20" id="3HU-0H-gUb"/>
+                            <constraint firstItem="VvK-97-HPR" firstAttribute="top" secondItem="JNM-58-vSq" secondAttribute="bottom" constant="38.5" id="5GL-DV-cNq"/>
+                            <constraint firstItem="JNM-58-vSq" firstAttribute="centerX" secondItem="8G5-fL-Pyb" secondAttribute="centerX" id="6Kl-U8-iSL"/>
+                            <constraint firstItem="VvK-97-HPR" firstAttribute="centerX" secondItem="8G5-fL-Pyb" secondAttribute="centerX" id="JDY-xS-x0g"/>
+                            <constraint firstItem="JNM-58-vSq" firstAttribute="width" secondItem="8G5-fL-Pyb" secondAttribute="height" multiplier="13:29" id="K3J-fo-9AM"/>
+                            <constraint firstItem="Xg5-Ya-7qa" firstAttribute="top" secondItem="8G5-fL-Pyb" secondAttribute="top" constant="44" id="S1o-5P-yPp"/>
+                            <constraint firstItem="Xg5-Ya-7qa" firstAttribute="trailing" secondItem="IWu-KM-z4k" secondAttribute="trailing" id="Tqk-3R-Ydg"/>
+                            <constraint firstItem="Xg5-Ya-7qa" firstAttribute="leading" secondItem="IWu-KM-z4k" secondAttribute="leading" id="o2E-0t-V0S"/>
+                            <constraint firstItem="Xg5-Ya-7qa" firstAttribute="bottom" secondItem="IWu-KM-z4k" secondAttribute="bottom" id="vvF-GG-onf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="IWu-KM-z4k"/>
+                    </view>
+                    <connections>
+                        <outlet property="nextButton" destination="VvK-97-HPR" id="d37-b3-GdX"/>
+                        <outlet property="nicknameTextField" destination="JNM-58-vSq" id="ZAo-7z-0A1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="U1d-LM-q9G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="76" y="-183.05847076461771"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="phone-bg" width="750" height="1334"/>
+    </resources>
+</document>

@@ -1,9 +1,16 @@
-mutation joinGame($id: ID){
-    joinGame(id: $id){
+mutation joinGame($inviteCode: String!){
+    joinGame(inviteCode: $inviteCode){
         id
         connectedPlayers{
             connectedGamePosition
             username
+        }
+        playersOrderedByPosition{
+            number
+            player{
+                connectedGamePosition
+                username
+            }
         }
         host{
             connectedGamePosition
@@ -21,5 +28,6 @@ mutation joinGame($id: ID){
             id
             createdAt
         }
+        inviteCode
     }
 }

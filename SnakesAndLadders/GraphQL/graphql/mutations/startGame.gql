@@ -5,6 +5,13 @@ mutation startGame{
             connectedGamePosition
             username
         }
+        playersOrderedByPosition{
+            number
+            player{
+                connectedGamePosition
+                username
+            }
+        }
         host{
             connectedGamePosition
             username
@@ -21,5 +28,6 @@ mutation startGame{
             id
             createdAt
         }
+        inviteCode
     }
 }

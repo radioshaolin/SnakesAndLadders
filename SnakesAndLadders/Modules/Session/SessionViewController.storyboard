@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Join Session View Conroller-->
+        <scene sceneID="3qT-Cw-Dco">
+            <objects>
+                <viewController storyboardIdentifier="JoinSessionViewConroller" id="gct-oG-Fiq" customClass="JoinSessionViewConroller" customModule="SnakesAndLadders" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UYh-UD-sQ6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-bg" translatesAutoresizingMaskIntoConstraints="NO" id="ZqG-Xe-Fpw">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter game registration code ..." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="IBK-QW-hIM">
+                                <rect key="frame" x="56.5" y="450" width="262.5" height="30"/>
+                                <color key="backgroundColor" red="1" green="0.80000000000000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="name"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8X2-h5-qEg">
+                                <rect key="frame" x="75" y="509" width="225" height="122"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="122" id="NzP-M4-P5x"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="phone-button-join"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-ava-yell" translatesAutoresizingMaskIntoConstraints="NO" id="JUo-t8-Yoo">
+                                <rect key="frame" x="132.5" y="322" width="110" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="eBX-XX-CHc"/>
+                                    <constraint firstAttribute="width" constant="110" id="gTa-F6-Uqj"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.35294117650000001" green="0.20784313730000001" blue="0.4549019608" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="IBK-QW-hIM" firstAttribute="top" secondItem="JUo-t8-Yoo" secondAttribute="bottom" constant="8" id="0zP-Py-LQP"/>
+                            <constraint firstItem="JUo-t8-Yoo" firstAttribute="centerX" secondItem="UYh-UD-sQ6" secondAttribute="centerX" id="DVi-gg-gYG"/>
+                            <constraint firstItem="8X2-h5-qEg" firstAttribute="width" secondItem="UYh-UD-sQ6" secondAttribute="width" multiplier="0.6" id="Drp-EF-iT3"/>
+                            <constraint firstItem="ZqG-Xe-Fpw" firstAttribute="top" secondItem="zXL-9K-cFF" secondAttribute="top" constant="44" id="NXN-X4-Cbz"/>
+                            <constraint firstItem="8X2-h5-qEg" firstAttribute="top" secondItem="IBK-QW-hIM" secondAttribute="bottom" constant="29" id="NZl-bE-Z4y"/>
+                            <constraint firstItem="ZqG-Xe-Fpw" firstAttribute="bottom" secondItem="zXL-9K-cFF" secondAttribute="bottom" id="QBZ-x4-R39"/>
+                            <constraint firstItem="ZqG-Xe-Fpw" firstAttribute="trailing" secondItem="zXL-9K-cFF" secondAttribute="trailing" id="VUx-Ui-HUA"/>
+                            <constraint firstItem="zXL-9K-cFF" firstAttribute="bottom" secondItem="8X2-h5-qEg" secondAttribute="bottom" constant="36" id="kuj-eU-8mQ"/>
+                            <constraint firstItem="8X2-h5-qEg" firstAttribute="centerX" secondItem="UYh-UD-sQ6" secondAttribute="centerX" id="m13-sO-yGp"/>
+                            <constraint firstItem="IBK-QW-hIM" firstAttribute="width" secondItem="UYh-UD-sQ6" secondAttribute="width" multiplier="0.7" id="pqW-XB-BmQ"/>
+                            <constraint firstItem="IBK-QW-hIM" firstAttribute="centerX" secondItem="UYh-UD-sQ6" secondAttribute="centerX" id="sFK-CD-uKh"/>
+                            <constraint firstItem="ZqG-Xe-Fpw" firstAttribute="leading" secondItem="zXL-9K-cFF" secondAttribute="leading" id="xaC-L8-RqM"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zXL-9K-cFF"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gjD-bL-k8V" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="93.599999999999994" y="89.505247376311857"/>
+        </scene>
+        <!--Start Session View Controller-->
+        <scene sceneID="eIL-4d-MZM">
+            <objects>
+                <viewController storyboardIdentifier="StartSessionViewController" id="XAJ-xP-tnd" customClass="StartSessionViewController" customModule="SnakesAndLadders" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="m6m-bJ-Qtb">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-bg" translatesAutoresizingMaskIntoConstraints="NO" id="Gxr-TK-Ze5">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aNZ-l0-oH5">
+                                <rect key="frame" x="75" y="509" width="225" height="122"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="122" id="xiA-d5-jai"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="phone-button-start"/>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="phone-ava-pink" translatesAutoresizingMaskIntoConstraints="NO" id="2il-iC-ydZ">
+                                <rect key="frame" x="97.5" y="299" width="180" height="180"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="180" id="Glh-zT-ptx"/>
+                                    <constraint firstAttribute="height" constant="180" id="lOJ-PA-vQr"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.35294117647058826" green="0.20784313725490197" blue="0.45490196078431372" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="Gxr-TK-Ze5" firstAttribute="bottom" secondItem="qtd-6u-PgP" secondAttribute="bottom" id="4aA-DC-dQ1"/>
+                            <constraint firstItem="Gxr-TK-Ze5" firstAttribute="trailing" secondItem="qtd-6u-PgP" secondAttribute="trailing" id="D1p-Gh-gku"/>
+                            <constraint firstItem="qtd-6u-PgP" firstAttribute="bottom" secondItem="aNZ-l0-oH5" secondAttribute="bottom" constant="36" id="GT0-IR-FPp"/>
+                            <constraint firstItem="aNZ-l0-oH5" firstAttribute="top" secondItem="2il-iC-ydZ" secondAttribute="bottom" constant="30" id="KcZ-ZJ-mSf"/>
+                            <constraint firstItem="aNZ-l0-oH5" firstAttribute="width" secondItem="m6m-bJ-Qtb" secondAttribute="width" multiplier="0.6" id="Ru6-f6-fR0"/>
+                            <constraint firstItem="Gxr-TK-Ze5" firstAttribute="leading" secondItem="qtd-6u-PgP" secondAttribute="leading" id="VEu-Df-CYA"/>
+                            <constraint firstItem="2il-iC-ydZ" firstAttribute="centerX" secondItem="m6m-bJ-Qtb" secondAttribute="centerX" id="b7I-Ua-hOc"/>
+                            <constraint firstItem="Gxr-TK-Ze5" firstAttribute="top" secondItem="qtd-6u-PgP" secondAttribute="top" constant="44" id="sDS-1I-mJ4"/>
+                            <constraint firstItem="aNZ-l0-oH5" firstAttribute="centerX" secondItem="m6m-bJ-Qtb" secondAttribute="centerX" id="xJQ-un-TR6"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="qtd-6u-PgP"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="e4a-wY-8F4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="926" y="90"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="phone-ava-pink" width="180" height="180"/>
+        <image name="phone-ava-yell" width="180" height="180"/>
+        <image name="phone-bg" width="750" height="1334"/>
+        <image name="phone-button-join" width="438" height="422"/>
+        <image name="phone-button-start" width="438" height="422"/>
+    </resources>
+</document>

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5FF29BC177B78B405BD61FDD /* Pods_SnakesAndLadders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06F85A0C929ECC6617EE820F /* Pods_SnakesAndLadders.framework */; };
+		D50DEBE3217321C00021ACE2 /* SessionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D50DEBE2217321C00021ACE2 /* SessionViewController.storyboard */; };
+		D50DEBE5217328D60021ACE2 /* StartSessionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50DEBE4217328D60021ACE2 /* StartSessionViewController.swift */; };
+		D50DEBE72173320C0021ACE2 /* UIViewController+NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D50DEBE62173320C0021ACE2 /* UIViewController+NavigationController.swift */; };
 		D51E18552171E919008FA108 /* GameViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D51E18542171E919008FA108 /* GameViewController.storyboard */; };
 		D51E18572171EA23008FA108 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D51E18562171EA22008FA108 /* GameViewController.swift */; };
 		D5408591216FD3B8004BDE8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5408590216FD3B8004BDE8C /* AppDelegate.swift */; };
@@ -21,7 +24,7 @@
 		D54085B2216FE180004BDE8C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54085B1216FE180004BDE8C /* AppCoordinator.swift */; };
 		D54085C1216FF468004BDE8C /* PlayerRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */; };
 		D54085C3216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */; };
-		D5C9E8872172AB92008266B1 /* SessionWaitViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C9E8862172AB92008266B1 /* SessionWaitViewConroller.swift */; };
+		D5C9E8872172AB92008266B1 /* JoinSessionViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C9E8862172AB92008266B1 /* JoinSessionViewConroller.swift */; };
 		D5C9E8972172C26E008266B1 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C9E8962172C26E008266B1 /* API.swift */; };
 		D5D519072170BA5F0049E6AC /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */; };
 		F59DA2A421723DFB001ADF33 /* GraphQL in Resources */ = {isa = PBXBuildFile; fileRef = F59DA2A321723DFB001ADF33 /* GraphQL */; };
@@ -43,6 +46,9 @@
 		06F85A0C929ECC6617EE820F /* Pods_SnakesAndLadders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnakesAndLadders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		945E1A78AF1F402AF80172DC /* Pods-SnakesAndLadders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnakesAndLadders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders.debug.xcconfig"; sourceTree = "<group>"; };
 		D48954C1021F1C71D3F3B74B /* Pods-SnakesAndLadders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnakesAndLadders.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders.release.xcconfig"; sourceTree = "<group>"; };
+		D50DEBE2217321C00021ACE2 /* SessionViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SessionViewController.storyboard; sourceTree = "<group>"; };
+		D50DEBE4217328D60021ACE2 /* StartSessionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartSessionViewController.swift; sourceTree = "<group>"; };
+		D50DEBE62173320C0021ACE2 /* UIViewController+NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+NavigationController.swift"; sourceTree = "<group>"; };
 		D51E18542171E919008FA108 /* GameViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = GameViewController.storyboard; sourceTree = "<group>"; };
 		D51E18562171EA22008FA108 /* GameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameViewController.swift; sourceTree = "<group>"; };
 		D540858D216FD3B8004BDE8C /* SnakesAndLadders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnakesAndLadders.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,7 +64,7 @@
 		D54085B1216FE180004BDE8C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRegistrationViewController.swift; sourceTree = "<group>"; };
 		D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerRegistrationViewController.storyboard; sourceTree = "<group>"; };
-		D5C9E8862172AB92008266B1 /* SessionWaitViewConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWaitViewConroller.swift; sourceTree = "<group>"; };
+		D5C9E8862172AB92008266B1 /* JoinSessionViewConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoinSessionViewConroller.swift; sourceTree = "<group>"; };
 		D5C9E8962172C26E008266B1 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
 		F59DA2A321723DFB001ADF33 /* GraphQL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GraphQL; sourceTree = "<group>"; };
@@ -93,6 +99,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		D50DEBE12173213E0021ACE2 /* Session */ = {
+			isa = PBXGroup;
+			children = (
+				D5C9E8862172AB92008266B1 /* JoinSessionViewConroller.swift */,
+				D50DEBE4217328D60021ACE2 /* StartSessionViewController.swift */,
+				D50DEBE2217321C00021ACE2 /* SessionViewController.storyboard */,
+			);
+			path = Session;
+			sourceTree = "<group>";
+		};
 		D51E185C2172034D008FA108 /* Home */ = {
 			isa = PBXGroup;
 			children = (
@@ -102,14 +118,13 @@
 			path = Home;
 			sourceTree = "<group>";
 		};
-		D51E185D21720355008FA108 /* Registration */ = {
+		D51E185D21720355008FA108 /* PlayerRegistration */ = {
 			isa = PBXGroup;
 			children = (
-				D5C9E8862172AB92008266B1 /* SessionWaitViewConroller.swift */,
 				D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */,
 				D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */,
 			);
-			path = Registration;
+			path = PlayerRegistration;
 			sourceTree = "<group>";
 		};
 		D51E185F21720368008FA108 /* Game */ = {
@@ -175,8 +190,9 @@
 			isa = PBXGroup;
 			children = (
 				D54085B1216FE180004BDE8C /* AppCoordinator.swift */,
+				D50DEBE12173213E0021ACE2 /* Session */,
 				D51E185F21720368008FA108 /* Game */,
-				D51E185D21720355008FA108 /* Registration */,
+				D51E185D21720355008FA108 /* PlayerRegistration */,
 				D51E185C2172034D008FA108 /* Home */,
 			);
 			path = Modules;
@@ -196,6 +212,7 @@
 			isa = PBXGroup;
 			children = (
 				D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */,
+				D50DEBE62173320C0021ACE2 /* UIViewController+NavigationController.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -262,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50DEBE3217321C00021ACE2 /* SessionViewController.storyboard in Resources */,
 				D54085C3216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard in Resources */,
 				F59DA2A421723DFB001ADF33 /* GraphQL in Resources */,
 				D540859B216FD3B9004BDE8C /* LaunchScreen.storyboard in Resources */,
@@ -337,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D50DEBE72173320C0021ACE2 /* UIViewController+NavigationController.swift in Sources */,
 				D51E18572171EA23008FA108 /* GameViewController.swift in Sources */,
 				D54085B2216FE180004BDE8C /* AppCoordinator.swift in Sources */,
 				D5408593216FD3B8004BDE8C /* HomeViewController.swift in Sources */,
@@ -345,9 +364,10 @@
 				D54085AC216FE0D0004BDE8C /* Coordinator.swift in Sources */,
 				D54085B0216FE14B004BDE8C /* RootViewCoordinator.swift in Sources */,
 				D5C9E8972172C26E008266B1 /* API.swift in Sources */,
+				D50DEBE5217328D60021ACE2 /* StartSessionViewController.swift in Sources */,
 				D54085AE216FE110004BDE8C /* DataServices.swift in Sources */,
 				D5D519072170BA5F0049E6AC /* UIViewController+Storyboard.swift in Sources */,
-				D5C9E8872172AB92008266B1 /* SessionWaitViewConroller.swift in Sources */,
+				D5C9E8872172AB92008266B1 /* JoinSessionViewConroller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -495,8 +515,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VX2YJU32EW;
+				DEVELOPMENT_TEAM = TA9RQZV3QA;
 				INFOPLIST_FILE = "$(SRCROOT)/SnakesAndLadders/Other/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -514,8 +535,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VX2YJU32EW;
+				DEVELOPMENT_TEAM = TA9RQZV3QA;
 				INFOPLIST_FILE = "$(SRCROOT)/SnakesAndLadders/Other/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -4,21 +4,29 @@ query getLastTurn {
         nextPlayer{
             connectedGame{
                 id
+                playersOrderedByPosition{
+                    number
+                }
                 state
                 openedSession{
                     id
                     createdAt
                 }
+                inviteCode
             }
             connectedGamePosition
             username
             createdGame{
                 id
+                playersOrderedByPosition{
+                    number
+                }
                 state
                 openedSession{
                     id
                     createdAt
                 }
+                inviteCode
             }
         }
     }

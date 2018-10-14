@@ -5,6 +5,13 @@ query getLastGameWaitingForPlayers {
             connectedGamePosition
             username
         }
+        playersOrderedByPosition{
+            number
+            player{
+                connectedGamePosition
+                username
+            }
+        }
         host{
             connectedGamePosition
             username
@@ -21,5 +28,6 @@ query getLastGameWaitingForPlayers {
             id
             createdAt
         }
+        inviteCode
     }
 }

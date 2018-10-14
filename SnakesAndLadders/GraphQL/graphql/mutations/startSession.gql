@@ -8,6 +8,13 @@ mutation startSession{
                 connectedGamePosition
                 username
             }
+            playersOrderedByPosition{
+                number
+                player{
+                    connectedGamePosition
+                    username
+                }
+            }
             host{
                 connectedGamePosition
                 username
@@ -20,6 +27,7 @@ mutation startSession{
                     username
                 }
             }
+            inviteCode
         }
     }
 }

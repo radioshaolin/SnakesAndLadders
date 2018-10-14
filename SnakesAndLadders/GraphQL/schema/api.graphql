@@ -1,4 +1,5 @@
 
+
 enum ExtensionCode {
   entityArgumentInvalid
   databaseError
@@ -14,10 +15,12 @@ enum ExtensionCode {
 type Game {
   id: ID!
   connectedPlayers: [Player!]
+  playersOrderedByPosition: [PlayerQueuePosition!]
   host: Player!
   state: GameState
   turns: [Turn!]
   openedSession: Session
+  inviteCode: String!
 }
 
 enum GameState {
@@ -30,7 +33,7 @@ enum GameState {
 type Mutation {
   createGame: Game!
   startGame: Game!
-  joinGame(id: ID): Game!
+  joinGame(inviteCode: String!): Game!
   completeGame(input: [PlayersGamePositionsInput]): Game!
   startSession: Session!
   register(input: PlayerInput!): Player!
@@ -44,13 +47,13 @@ type Player {
   createdGame: Game
 }
 
-type PlayerGamePosition {
-  username: ID!
-  number: Int!
-}
-
 input PlayerInput {
   username: String!
+}
+
+type PlayerQueuePosition {
+  number: Int!
+  player: Player!
 }
 
 input PlayersGamePositionsInput {

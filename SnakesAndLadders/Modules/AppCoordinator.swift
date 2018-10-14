@@ -14,8 +14,12 @@ import Apollo
 class AppCoordinator: RootViewCoordinator {
     /// Window to manage
     let window: UIWindow?
+    
+    var name: String = ""
+    var sessionId: String = ""
+    var isHost: Bool = false
 
-    let apollo = ApolloClient(url: URL(string: "https://snakes-n-ladders.ga")!)
+    var apollo: ApolloClient = ApolloClient(url: URL(string: "https://api.snakes-n-ladders.ga")!)
 
     // MARK: - Properties
     var services: Services
@@ -43,6 +47,14 @@ class AppCoordinator: RootViewCoordinator {
         showHomeViewController()
     }
     
+    func buildApollo(userName: String, gameId: String) -> ApolloClient {
+        let configuration = URLSessionConfiguration.default
+        configuration.httpAdditionalHeaders = ["X-Profileid": userName,
+                                               "X-Gameid" : gameId]
+        let url = URL(string: "https://api.snakes-n-ladders.ga")!
+        return ApolloClient(networkTransport: HTTPNetworkTransport(url: url, configuration: configuration))
+    }
+    
     private func showHomeViewController() {
         let homeViewController = HomeViewController.fromStoryboard()
         homeViewController.services = services
@@ -51,23 +63,30 @@ class AppCoordinator: RootViewCoordinator {
     }
     
     func showPlayerRegistrationViewController() {
-        let playerRegistrationVC = PlayerRegistrationViewController.fromStoryboard(name: "PlayerRegistrationViewController")
-        playerRegistrationVC.services = services
+        let playerRegistrationVC = PlayerRegistrationViewController.fromStoryboard()
         playerRegistrationVC.delegate = self
         navigationController.isNavigationBarHidden = false
         rootViewController.pushViewController(playerRegistrationVC, animated: true)
     }
     
-    func showSessionWaitViewConroller() {
-        let sessionWaitVC = SessionWaitViewConroller.fromStoryboard(name: "PlayerRegistrationViewController")
-        sessionWaitVC.delegate = self
+    func showJoinSessionViewConroller() {
+        let joinSessionVC = JoinSessionViewConroller.fromStoryboard(name: "SessionViewController")
+        joinSessionVC.delegate = self
         navigationController.isNavigationBarHidden = false
-        rootViewController.pushViewController(sessionWaitVC, animated: true)
+        rootViewController.pushViewController(joinSessionVC, animated: true)
     }
     
-     func showGameViewController() {
+    func showStartSessionViewConroller() {
+        let startSessionVC = StartSessionViewController.fromStoryboard(name: "SessionViewController")
+        startSessionVC.delegate = self
+        navigationController.isNavigationBarHidden = false
+        rootViewController.pushViewController(startSessionVC, animated: true)
+    }
+    
+    func showGameViewController(gameId: String, nickname: String) {
         let gameVC = GameViewController.fromStoryboard()
-        gameVC.services = services
+        gameVC.gameId = gameId
+        gameVC.nickname = nickname
         gameVC.delegate = self
         navigationController.isNavigationBarHidden = false
         rootViewController.pushViewController(gameVC, animated: true)
@@ -76,19 +95,22 @@ class AppCoordinator: RootViewCoordinator {
 
 extension AppCoordinator: HomeViewControllerDelegate {
     func didTapStart(homeVC: HomeViewController) {
-        services.isHost = true
+        isHost = true
         showPlayerRegistrationViewController()
     }
     
     func didTapJoin(homeVC: HomeViewController) {
-        services.isHost = false
+        isHost = false
         showPlayerRegistrationViewController()
     }
 }
 
 extension AppCoordinator: GameViewControllerDelegate {
     func didMakeTurn(number: Int) {
+        apollo.perform(mutation: MakeTurnMutation.init(roll: number))
         
+        //nekstPlayer
+
     }
     
     func didGameOver() {
@@ -97,28 +119,30 @@ extension AppCoordinator: GameViewControllerDelegate {
 }
 
 extension AppCoordinator: PlayerRegistrationViewControllerDelegate {
-    func didAdd(user: User) {
-        services.dataService.users.append(user)
-        let playerInput = PlayerInput.init(username: user.nickname)
+    func didAdd(user: String) {
+        let playerInput = PlayerInput.init(username: user)
+        name = user
         apollo.perform(mutation: RegisterMutation.init(input: playerInput))
-        apollo.perform(mutation: CreateGameMutation.init())
+        if isHost {
+            apollo.perform(mutation: CreateGameMutation.init())  { [weak self] resultsGQL, error in
+                guard let strongSelf = self,
+                let id = resultsGQL?.data?.createGame.id else { return }
 
-    }
-    
-    func didStartGame(_ playerRegistrationVC: PlayerRegistrationViewController) {
-        rootViewController.popViewController(animated: true)
-        showGameViewController()
-    }
-    
-    private func buildHeaderRequest(userName: String) -> URLRequest {
-        let url = URL(string: "https://snakes-n-ladders.ga")!
-        var request = URLRequest(url: url)
-        request.setValue("\(userName)", forHTTPHeaderField: "X-PlayerId")
-        request.httpMethod = "POST"
-        return request
+                strongSelf.sessionId = String(id)
+                strongSelf.apollo = strongSelf.buildApollo(userName: user, gameId: id)
+            }
+            showGameViewController(gameId: sessionId, nickname: user)
+
+        } else {
+            showJoinSessionViewConroller()
+        }
     }
 }
 
-extension AppCoordinator: SessionWaitViewConrollerDelegate {
+extension AppCoordinator: JoinSessionViewConrollerDelegate {
+    
+}
+
+extension AppCoordinator: StartSessionViewControllerDelegate {
     
 }

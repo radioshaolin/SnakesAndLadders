@@ -2,6 +2,9 @@ mutation register($input: PlayerInput!){
     register(input: $input){
         connectedGame{
             id
+            playersOrderedByPosition{
+                number
+            }
             state
             turns{
                 lastRoll
@@ -10,11 +13,15 @@ mutation register($input: PlayerInput!){
                 id
                 createdAt
             }
+            inviteCode
         }
         connectedGamePosition
         username
         createdGame{
             id
+            playersOrderedByPosition{
+                number
+            }
             state
             turns{
                 lastRoll
@@ -23,6 +30,7 @@ mutation register($input: PlayerInput!){
                 id
                 createdAt
             }
+            inviteCode
         }
     }
 }

@@ -88,7 +88,7 @@ public struct PlayerInput: GraphQLMapConvertible {
 
 public final class CompleteGameMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation completeGame($input: [PlayersGamePositionsInput]) {\n  completeGame(input: $input) {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n  }\n}"
+    "mutation completeGame($input: [PlayersGamePositionsInput]) {\n  completeGame(input: $input) {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    playersOrderedByPosition {\n      __typename\n      number\n      player {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n    inviteCode\n  }\n}"
 
   public var input: [PlayersGamePositionsInput?]?
 
@@ -133,10 +133,12 @@ public final class CompleteGameMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("connectedPlayers", type: .list(.nonNull(.object(ConnectedPlayer.selections)))),
+        GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
         GraphQLField("host", type: .nonNull(.object(Host.selections))),
         GraphQLField("state", type: .scalar(GameState.self)),
         GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
         GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+        GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -145,8 +147,8 @@ public final class CompleteGameMutation: GraphQLMutation {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
       }
 
       public var __typename: String {
@@ -173,6 +175,15 @@ public final class CompleteGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, forKey: "connectedPlayers")
+        }
+      }
+
+      public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+        get {
+          return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
         }
       }
 
@@ -209,6 +220,15 @@ public final class CompleteGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+        }
+      }
+
+      public var inviteCode: String {
+        get {
+          return resultMap["inviteCode"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "inviteCode")
         }
       }
 
@@ -255,6 +275,100 @@ public final class CompleteGameMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue, forKey: "username")
+          }
+        }
+      }
+
+      public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+        public static let possibleTypes = ["PlayerQueuePosition"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("player", type: .nonNull(.object(Player.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(number: Int, player: Player) {
+          self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number, "player": player.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var number: Int {
+          get {
+            return resultMap["number"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "number")
+          }
+        }
+
+        public var player: Player {
+          get {
+            return Player(unsafeResultMap: resultMap["player"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "player")
+          }
+        }
+
+        public struct Player: GraphQLSelectionSet {
+          public static let possibleTypes = ["Player"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("connectedGamePosition", type: .scalar(Int.self)),
+            GraphQLField("username", type: .nonNull(.scalar(GraphQLID.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(connectedGamePosition: Int? = nil, username: GraphQLID) {
+            self.init(unsafeResultMap: ["__typename": "Player", "connectedGamePosition": connectedGamePosition, "username": username])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var connectedGamePosition: Int? {
+            get {
+              return resultMap["connectedGamePosition"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "connectedGamePosition")
+            }
+          }
+
+          public var username: GraphQLID {
+            get {
+              return resultMap["username"]! as! GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "username")
+            }
           }
         }
       }
@@ -452,7 +566,7 @@ public final class CompleteGameMutation: GraphQLMutation {
 
 public final class CreateGameMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation createGame {\n  createGame {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n  }\n}"
+    "mutation createGame {\n  createGame {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    playersOrderedByPosition {\n      __typename\n      number\n      player {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n    inviteCode\n  }\n}"
 
   public init() {
   }
@@ -490,10 +604,12 @@ public final class CreateGameMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("connectedPlayers", type: .list(.nonNull(.object(ConnectedPlayer.selections)))),
+        GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
         GraphQLField("host", type: .nonNull(.object(Host.selections))),
         GraphQLField("state", type: .scalar(GameState.self)),
         GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
         GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+        GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -502,8 +618,8 @@ public final class CreateGameMutation: GraphQLMutation {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
       }
 
       public var __typename: String {
@@ -530,6 +646,15 @@ public final class CreateGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, forKey: "connectedPlayers")
+        }
+      }
+
+      public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+        get {
+          return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
         }
       }
 
@@ -566,6 +691,15 @@ public final class CreateGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+        }
+      }
+
+      public var inviteCode: String {
+        get {
+          return resultMap["inviteCode"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "inviteCode")
         }
       }
 
@@ -612,6 +746,100 @@ public final class CreateGameMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue, forKey: "username")
+          }
+        }
+      }
+
+      public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+        public static let possibleTypes = ["PlayerQueuePosition"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("player", type: .nonNull(.object(Player.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(number: Int, player: Player) {
+          self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number, "player": player.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var number: Int {
+          get {
+            return resultMap["number"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "number")
+          }
+        }
+
+        public var player: Player {
+          get {
+            return Player(unsafeResultMap: resultMap["player"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "player")
+          }
+        }
+
+        public struct Player: GraphQLSelectionSet {
+          public static let possibleTypes = ["Player"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("connectedGamePosition", type: .scalar(Int.self)),
+            GraphQLField("username", type: .nonNull(.scalar(GraphQLID.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(connectedGamePosition: Int? = nil, username: GraphQLID) {
+            self.init(unsafeResultMap: ["__typename": "Player", "connectedGamePosition": connectedGamePosition, "username": username])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var connectedGamePosition: Int? {
+            get {
+              return resultMap["connectedGamePosition"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "connectedGamePosition")
+            }
+          }
+
+          public var username: GraphQLID {
+            get {
+              return resultMap["username"]! as! GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "username")
+            }
           }
         }
       }
@@ -809,23 +1037,23 @@ public final class CreateGameMutation: GraphQLMutation {
 
 public final class JoinGameMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation joinGame($id: ID) {\n  joinGame(id: $id) {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n  }\n}"
+    "mutation joinGame($inviteCode: String!) {\n  joinGame(inviteCode: $inviteCode) {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    playersOrderedByPosition {\n      __typename\n      number\n      player {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n    inviteCode\n  }\n}"
 
-  public var id: GraphQLID?
+  public var inviteCode: String
 
-  public init(id: GraphQLID? = nil) {
-    self.id = id
+  public init(inviteCode: String) {
+    self.inviteCode = inviteCode
   }
 
   public var variables: GraphQLMap? {
-    return ["id": id]
+    return ["inviteCode": inviteCode]
   }
 
   public struct Data: GraphQLSelectionSet {
     public static let possibleTypes = ["Mutation"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("joinGame", arguments: ["id": GraphQLVariable("id")], type: .nonNull(.object(JoinGame.selections))),
+      GraphQLField("joinGame", arguments: ["inviteCode": GraphQLVariable("inviteCode")], type: .nonNull(.object(JoinGame.selections))),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -854,10 +1082,12 @@ public final class JoinGameMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("connectedPlayers", type: .list(.nonNull(.object(ConnectedPlayer.selections)))),
+        GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
         GraphQLField("host", type: .nonNull(.object(Host.selections))),
         GraphQLField("state", type: .scalar(GameState.self)),
         GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
         GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+        GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -866,8 +1096,8 @@ public final class JoinGameMutation: GraphQLMutation {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
       }
 
       public var __typename: String {
@@ -894,6 +1124,15 @@ public final class JoinGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, forKey: "connectedPlayers")
+        }
+      }
+
+      public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+        get {
+          return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
         }
       }
 
@@ -930,6 +1169,15 @@ public final class JoinGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+        }
+      }
+
+      public var inviteCode: String {
+        get {
+          return resultMap["inviteCode"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "inviteCode")
         }
       }
 
@@ -976,6 +1224,100 @@ public final class JoinGameMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue, forKey: "username")
+          }
+        }
+      }
+
+      public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+        public static let possibleTypes = ["PlayerQueuePosition"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("player", type: .nonNull(.object(Player.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(number: Int, player: Player) {
+          self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number, "player": player.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var number: Int {
+          get {
+            return resultMap["number"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "number")
+          }
+        }
+
+        public var player: Player {
+          get {
+            return Player(unsafeResultMap: resultMap["player"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "player")
+          }
+        }
+
+        public struct Player: GraphQLSelectionSet {
+          public static let possibleTypes = ["Player"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("connectedGamePosition", type: .scalar(Int.self)),
+            GraphQLField("username", type: .nonNull(.scalar(GraphQLID.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(connectedGamePosition: Int? = nil, username: GraphQLID) {
+            self.init(unsafeResultMap: ["__typename": "Player", "connectedGamePosition": connectedGamePosition, "username": username])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var connectedGamePosition: Int? {
+            get {
+              return resultMap["connectedGamePosition"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "connectedGamePosition")
+            }
+          }
+
+          public var username: GraphQLID {
+            get {
+              return resultMap["username"]! as! GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "username")
+            }
           }
         }
       }
@@ -1173,7 +1515,7 @@ public final class JoinGameMutation: GraphQLMutation {
 
 public final class MakeTurnMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation makeTurn($roll: Int) {\n  makeTurn(roll: $roll) {\n    __typename\n    lastRoll\n    nextPlayer {\n      __typename\n      connectedGame {\n        __typename\n        id\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n      }\n      connectedGamePosition\n      username\n      createdGame {\n        __typename\n        id\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n      }\n    }\n  }\n}"
+    "mutation makeTurn($roll: Int) {\n  makeTurn(roll: $roll) {\n    __typename\n    lastRoll\n    nextPlayer {\n      __typename\n      connectedGame {\n        __typename\n        id\n        playersOrderedByPosition {\n          __typename\n          number\n        }\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n        inviteCode\n      }\n      connectedGamePosition\n      username\n      createdGame {\n        __typename\n        id\n        playersOrderedByPosition {\n          __typename\n          number\n        }\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n        inviteCode\n      }\n    }\n  }\n}"
 
   public var roll: Int?
 
@@ -1329,8 +1671,10 @@ public final class MakeTurnMutation: GraphQLMutation {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
             GraphQLField("state", type: .scalar(GameState.self)),
             GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+            GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -1339,8 +1683,8 @@ public final class MakeTurnMutation: GraphQLMutation {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, state: GameState? = nil, openedSession: OpenedSession? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+          public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
           }
 
           public var __typename: String {
@@ -1361,6 +1705,15 @@ public final class MakeTurnMutation: GraphQLMutation {
             }
           }
 
+          public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+            get {
+              return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
+            }
+          }
+
           public var state: GameState? {
             get {
               return resultMap["state"] as? GameState
@@ -1376,6 +1729,52 @@ public final class MakeTurnMutation: GraphQLMutation {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+            }
+          }
+
+          public var inviteCode: String {
+            get {
+              return resultMap["inviteCode"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "inviteCode")
+            }
+          }
+
+          public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+            public static let possibleTypes = ["PlayerQueuePosition"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(number: Int) {
+              self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var number: Int {
+              get {
+                return resultMap["number"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "number")
+              }
             }
           }
 
@@ -1433,8 +1832,10 @@ public final class MakeTurnMutation: GraphQLMutation {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
             GraphQLField("state", type: .scalar(GameState.self)),
             GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+            GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -1443,8 +1844,8 @@ public final class MakeTurnMutation: GraphQLMutation {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, state: GameState? = nil, openedSession: OpenedSession? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+          public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
           }
 
           public var __typename: String {
@@ -1465,6 +1866,15 @@ public final class MakeTurnMutation: GraphQLMutation {
             }
           }
 
+          public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+            get {
+              return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
+            }
+          }
+
           public var state: GameState? {
             get {
               return resultMap["state"] as? GameState
@@ -1480,6 +1890,52 @@ public final class MakeTurnMutation: GraphQLMutation {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+            }
+          }
+
+          public var inviteCode: String {
+            get {
+              return resultMap["inviteCode"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "inviteCode")
+            }
+          }
+
+          public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+            public static let possibleTypes = ["PlayerQueuePosition"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(number: Int) {
+              self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var number: Int {
+              get {
+                return resultMap["number"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "number")
+              }
             }
           }
 
@@ -1537,7 +1993,7 @@ public final class MakeTurnMutation: GraphQLMutation {
 
 public final class RegisterMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation register($input: PlayerInput!) {\n  register(input: $input) {\n    __typename\n    connectedGame {\n      __typename\n      id\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n    }\n    connectedGamePosition\n    username\n    createdGame {\n      __typename\n      id\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n    }\n  }\n}"
+    "mutation register($input: PlayerInput!) {\n  register(input: $input) {\n    __typename\n    connectedGame {\n      __typename\n      id\n      playersOrderedByPosition {\n        __typename\n        number\n      }\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n      inviteCode\n    }\n    connectedGamePosition\n    username\n    createdGame {\n      __typename\n      id\n      playersOrderedByPosition {\n        __typename\n        number\n      }\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n      inviteCode\n    }\n  }\n}"
 
   public var input: PlayerInput
 
@@ -1647,9 +2103,11 @@ public final class RegisterMutation: GraphQLMutation {
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
           GraphQLField("state", type: .scalar(GameState.self)),
           GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
           GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+          GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -1658,8 +2116,8 @@ public final class RegisterMutation: GraphQLMutation {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+        public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
         }
 
         public var __typename: String {
@@ -1677,6 +2135,15 @@ public final class RegisterMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+          get {
+            return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
           }
         }
 
@@ -1704,6 +2171,52 @@ public final class RegisterMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+          }
+        }
+
+        public var inviteCode: String {
+          get {
+            return resultMap["inviteCode"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "inviteCode")
+          }
+        }
+
+        public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+          public static let possibleTypes = ["PlayerQueuePosition"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(number: Int) {
+            self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var number: Int {
+            get {
+              return resultMap["number"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "number")
+            }
           }
         }
 
@@ -1798,9 +2311,11 @@ public final class RegisterMutation: GraphQLMutation {
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
           GraphQLField("state", type: .scalar(GameState.self)),
           GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
           GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+          GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -1809,8 +2324,8 @@ public final class RegisterMutation: GraphQLMutation {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+        public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
         }
 
         public var __typename: String {
@@ -1828,6 +2343,15 @@ public final class RegisterMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+          get {
+            return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
           }
         }
 
@@ -1855,6 +2379,52 @@ public final class RegisterMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+          }
+        }
+
+        public var inviteCode: String {
+          get {
+            return resultMap["inviteCode"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "inviteCode")
+          }
+        }
+
+        public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+          public static let possibleTypes = ["PlayerQueuePosition"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(number: Int) {
+            self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var number: Int {
+            get {
+              return resultMap["number"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "number")
+            }
           }
         }
 
@@ -1948,7 +2518,7 @@ public final class RegisterMutation: GraphQLMutation {
 
 public final class StartGameMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation startGame {\n  startGame {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n  }\n}"
+    "mutation startGame {\n  startGame {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    playersOrderedByPosition {\n      __typename\n      number\n      player {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n    inviteCode\n  }\n}"
 
   public init() {
   }
@@ -1986,10 +2556,12 @@ public final class StartGameMutation: GraphQLMutation {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("connectedPlayers", type: .list(.nonNull(.object(ConnectedPlayer.selections)))),
+        GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
         GraphQLField("host", type: .nonNull(.object(Host.selections))),
         GraphQLField("state", type: .scalar(GameState.self)),
         GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
         GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+        GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -1998,8 +2570,8 @@ public final class StartGameMutation: GraphQLMutation {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
       }
 
       public var __typename: String {
@@ -2026,6 +2598,15 @@ public final class StartGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, forKey: "connectedPlayers")
+        }
+      }
+
+      public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+        get {
+          return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
         }
       }
 
@@ -2062,6 +2643,15 @@ public final class StartGameMutation: GraphQLMutation {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+        }
+      }
+
+      public var inviteCode: String {
+        get {
+          return resultMap["inviteCode"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "inviteCode")
         }
       }
 
@@ -2108,6 +2698,100 @@ public final class StartGameMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue, forKey: "username")
+          }
+        }
+      }
+
+      public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+        public static let possibleTypes = ["PlayerQueuePosition"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("player", type: .nonNull(.object(Player.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(number: Int, player: Player) {
+          self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number, "player": player.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var number: Int {
+          get {
+            return resultMap["number"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "number")
+          }
+        }
+
+        public var player: Player {
+          get {
+            return Player(unsafeResultMap: resultMap["player"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "player")
+          }
+        }
+
+        public struct Player: GraphQLSelectionSet {
+          public static let possibleTypes = ["Player"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("connectedGamePosition", type: .scalar(Int.self)),
+            GraphQLField("username", type: .nonNull(.scalar(GraphQLID.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(connectedGamePosition: Int? = nil, username: GraphQLID) {
+            self.init(unsafeResultMap: ["__typename": "Player", "connectedGamePosition": connectedGamePosition, "username": username])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var connectedGamePosition: Int? {
+            get {
+              return resultMap["connectedGamePosition"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "connectedGamePosition")
+            }
+          }
+
+          public var username: GraphQLID {
+            get {
+              return resultMap["username"]! as! GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "username")
+            }
           }
         }
       }
@@ -2305,7 +2989,7 @@ public final class StartGameMutation: GraphQLMutation {
 
 public final class StartSessionMutation: GraphQLMutation {
   public let operationDefinition =
-    "mutation startSession {\n  startSession {\n    __typename\n    id\n    createdAt\n    currentGame {\n      __typename\n      id\n      connectedPlayers {\n        __typename\n        connectedGamePosition\n        username\n      }\n      host {\n        __typename\n        connectedGamePosition\n        username\n      }\n      state\n      turns {\n        __typename\n        lastRoll\n        nextPlayer {\n          __typename\n          connectedGamePosition\n          username\n        }\n      }\n    }\n  }\n}"
+    "mutation startSession {\n  startSession {\n    __typename\n    id\n    createdAt\n    currentGame {\n      __typename\n      id\n      connectedPlayers {\n        __typename\n        connectedGamePosition\n        username\n      }\n      playersOrderedByPosition {\n        __typename\n        number\n        player {\n          __typename\n          connectedGamePosition\n          username\n        }\n      }\n      host {\n        __typename\n        connectedGamePosition\n        username\n      }\n      state\n      turns {\n        __typename\n        lastRoll\n        nextPlayer {\n          __typename\n          connectedGamePosition\n          username\n        }\n      }\n      inviteCode\n    }\n  }\n}"
 
   public init() {
   }
@@ -2399,9 +3083,11 @@ public final class StartSessionMutation: GraphQLMutation {
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
           GraphQLField("connectedPlayers", type: .list(.nonNull(.object(ConnectedPlayer.selections)))),
+          GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
           GraphQLField("host", type: .nonNull(.object(Host.selections))),
           GraphQLField("state", type: .scalar(GameState.self)),
           GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
+          GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -2410,8 +3096,8 @@ public final class StartSessionMutation: GraphQLMutation {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }])
+        public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, inviteCode: String) {
+          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "inviteCode": inviteCode])
         }
 
         public var __typename: String {
@@ -2441,6 +3127,15 @@ public final class StartSessionMutation: GraphQLMutation {
           }
         }
 
+        public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+          get {
+            return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
+          }
+        }
+
         public var host: Host {
           get {
             return Host(unsafeResultMap: resultMap["host"]! as! ResultMap)
@@ -2465,6 +3160,15 @@ public final class StartSessionMutation: GraphQLMutation {
           }
           set {
             resultMap.updateValue(newValue.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, forKey: "turns")
+          }
+        }
+
+        public var inviteCode: String {
+          get {
+            return resultMap["inviteCode"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "inviteCode")
           }
         }
 
@@ -2511,6 +3215,100 @@ public final class StartSessionMutation: GraphQLMutation {
             }
             set {
               resultMap.updateValue(newValue, forKey: "username")
+            }
+          }
+        }
+
+        public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+          public static let possibleTypes = ["PlayerQueuePosition"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+            GraphQLField("player", type: .nonNull(.object(Player.selections))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(number: Int, player: Player) {
+            self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number, "player": player.resultMap])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var number: Int {
+            get {
+              return resultMap["number"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "number")
+            }
+          }
+
+          public var player: Player {
+            get {
+              return Player(unsafeResultMap: resultMap["player"]! as! ResultMap)
+            }
+            set {
+              resultMap.updateValue(newValue.resultMap, forKey: "player")
+            }
+          }
+
+          public struct Player: GraphQLSelectionSet {
+            public static let possibleTypes = ["Player"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("connectedGamePosition", type: .scalar(Int.self)),
+              GraphQLField("username", type: .nonNull(.scalar(GraphQLID.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(connectedGamePosition: Int? = nil, username: GraphQLID) {
+              self.init(unsafeResultMap: ["__typename": "Player", "connectedGamePosition": connectedGamePosition, "username": username])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var connectedGamePosition: Int? {
+              get {
+                return resultMap["connectedGamePosition"] as? Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "connectedGamePosition")
+              }
+            }
+
+            public var username: GraphQLID {
+              get {
+                return resultMap["username"]! as! GraphQLID
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "username")
+              }
             }
           }
         }
@@ -2662,7 +3460,7 @@ public final class StartSessionMutation: GraphQLMutation {
 
 public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
   public let operationDefinition =
-    "query getLastGameWaitingForPlayers {\n  getLastGameWaitingForPlayers {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n  }\n}"
+    "query getLastGameWaitingForPlayers {\n  getLastGameWaitingForPlayers {\n    __typename\n    id\n    connectedPlayers {\n      __typename\n      connectedGamePosition\n      username\n    }\n    playersOrderedByPosition {\n      __typename\n      number\n      player {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    host {\n      __typename\n      connectedGamePosition\n      username\n    }\n    state\n    turns {\n      __typename\n      lastRoll\n      nextPlayer {\n        __typename\n        connectedGamePosition\n        username\n      }\n    }\n    openedSession {\n      __typename\n      id\n      createdAt\n    }\n    inviteCode\n  }\n}"
 
   public init() {
   }
@@ -2700,10 +3498,12 @@ public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
         GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
         GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
         GraphQLField("connectedPlayers", type: .list(.nonNull(.object(ConnectedPlayer.selections)))),
+        GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
         GraphQLField("host", type: .nonNull(.object(Host.selections))),
         GraphQLField("state", type: .scalar(GameState.self)),
         GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
         GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+        GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
       ]
 
       public private(set) var resultMap: ResultMap
@@ -2712,8 +3512,8 @@ public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
         self.resultMap = unsafeResultMap
       }
 
-      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+      public init(id: GraphQLID, connectedPlayers: [ConnectedPlayer]? = nil, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, host: Host, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+        self.init(unsafeResultMap: ["__typename": "Game", "id": id, "connectedPlayers": connectedPlayers.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "host": host.resultMap, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
       }
 
       public var __typename: String {
@@ -2740,6 +3540,15 @@ public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue.flatMap { (value: [ConnectedPlayer]) -> [ResultMap] in value.map { (value: ConnectedPlayer) -> ResultMap in value.resultMap } }, forKey: "connectedPlayers")
+        }
+      }
+
+      public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+        get {
+          return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+        }
+        set {
+          resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
         }
       }
 
@@ -2776,6 +3585,15 @@ public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
         }
         set {
           resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+        }
+      }
+
+      public var inviteCode: String {
+        get {
+          return resultMap["inviteCode"]! as! String
+        }
+        set {
+          resultMap.updateValue(newValue, forKey: "inviteCode")
         }
       }
 
@@ -2822,6 +3640,100 @@ public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "username")
+          }
+        }
+      }
+
+      public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+        public static let possibleTypes = ["PlayerQueuePosition"]
+
+        public static let selections: [GraphQLSelection] = [
+          GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+          GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          GraphQLField("player", type: .nonNull(.object(Player.selections))),
+        ]
+
+        public private(set) var resultMap: ResultMap
+
+        public init(unsafeResultMap: ResultMap) {
+          self.resultMap = unsafeResultMap
+        }
+
+        public init(number: Int, player: Player) {
+          self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number, "player": player.resultMap])
+        }
+
+        public var __typename: String {
+          get {
+            return resultMap["__typename"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "__typename")
+          }
+        }
+
+        public var number: Int {
+          get {
+            return resultMap["number"]! as! Int
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "number")
+          }
+        }
+
+        public var player: Player {
+          get {
+            return Player(unsafeResultMap: resultMap["player"]! as! ResultMap)
+          }
+          set {
+            resultMap.updateValue(newValue.resultMap, forKey: "player")
+          }
+        }
+
+        public struct Player: GraphQLSelectionSet {
+          public static let possibleTypes = ["Player"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("connectedGamePosition", type: .scalar(Int.self)),
+            GraphQLField("username", type: .nonNull(.scalar(GraphQLID.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(connectedGamePosition: Int? = nil, username: GraphQLID) {
+            self.init(unsafeResultMap: ["__typename": "Player", "connectedGamePosition": connectedGamePosition, "username": username])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var connectedGamePosition: Int? {
+            get {
+              return resultMap["connectedGamePosition"] as? Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "connectedGamePosition")
+            }
+          }
+
+          public var username: GraphQLID {
+            get {
+              return resultMap["username"]! as! GraphQLID
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "username")
+            }
           }
         }
       }
@@ -3019,7 +3931,7 @@ public final class GetLastGameWaitingForPlayersQuery: GraphQLQuery {
 
 public final class GetLastTurnQuery: GraphQLQuery {
   public let operationDefinition =
-    "query getLastTurn {\n  getLastTurn {\n    __typename\n    lastRoll\n    nextPlayer {\n      __typename\n      connectedGame {\n        __typename\n        id\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n      }\n      connectedGamePosition\n      username\n      createdGame {\n        __typename\n        id\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n      }\n    }\n  }\n}"
+    "query getLastTurn {\n  getLastTurn {\n    __typename\n    lastRoll\n    nextPlayer {\n      __typename\n      connectedGame {\n        __typename\n        id\n        playersOrderedByPosition {\n          __typename\n          number\n        }\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n        inviteCode\n      }\n      connectedGamePosition\n      username\n      createdGame {\n        __typename\n        id\n        playersOrderedByPosition {\n          __typename\n          number\n        }\n        state\n        openedSession {\n          __typename\n          id\n          createdAt\n        }\n        inviteCode\n      }\n    }\n  }\n}"
 
   public init() {
   }
@@ -3028,7 +3940,7 @@ public final class GetLastTurnQuery: GraphQLQuery {
     public static let possibleTypes = ["Query"]
 
     public static let selections: [GraphQLSelection] = [
-      GraphQLField("getLastTurn", type: .nonNull(.object(GetLastTurn.selections))),
+      GraphQLField("getLastTurn", type: .object(GetLastTurn.selections)),
     ]
 
     public private(set) var resultMap: ResultMap
@@ -3037,16 +3949,16 @@ public final class GetLastTurnQuery: GraphQLQuery {
       self.resultMap = unsafeResultMap
     }
 
-    public init(getLastTurn: GetLastTurn) {
-      self.init(unsafeResultMap: ["__typename": "Query", "getLastTurn": getLastTurn.resultMap])
+    public init(getLastTurn: GetLastTurn? = nil) {
+      self.init(unsafeResultMap: ["__typename": "Query", "getLastTurn": getLastTurn.flatMap { (value: GetLastTurn) -> ResultMap in value.resultMap }])
     }
 
-    public var getLastTurn: GetLastTurn {
+    public var getLastTurn: GetLastTurn? {
       get {
-        return GetLastTurn(unsafeResultMap: resultMap["getLastTurn"]! as! ResultMap)
+        return (resultMap["getLastTurn"] as? ResultMap).flatMap { GetLastTurn(unsafeResultMap: $0) }
       }
       set {
-        resultMap.updateValue(newValue.resultMap, forKey: "getLastTurn")
+        resultMap.updateValue(newValue?.resultMap, forKey: "getLastTurn")
       }
     }
 
@@ -3168,8 +4080,10 @@ public final class GetLastTurnQuery: GraphQLQuery {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
             GraphQLField("state", type: .scalar(GameState.self)),
             GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+            GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -3178,8 +4092,8 @@ public final class GetLastTurnQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, state: GameState? = nil, openedSession: OpenedSession? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+          public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
           }
 
           public var __typename: String {
@@ -3200,6 +4114,15 @@ public final class GetLastTurnQuery: GraphQLQuery {
             }
           }
 
+          public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+            get {
+              return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
+            }
+          }
+
           public var state: GameState? {
             get {
               return resultMap["state"] as? GameState
@@ -3215,6 +4138,52 @@ public final class GetLastTurnQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+            }
+          }
+
+          public var inviteCode: String {
+            get {
+              return resultMap["inviteCode"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "inviteCode")
+            }
+          }
+
+          public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+            public static let possibleTypes = ["PlayerQueuePosition"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(number: Int) {
+              self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var number: Int {
+              get {
+                return resultMap["number"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "number")
+              }
             }
           }
 
@@ -3272,8 +4241,10 @@ public final class GetLastTurnQuery: GraphQLQuery {
           public static let selections: [GraphQLSelection] = [
             GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
             GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+            GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
             GraphQLField("state", type: .scalar(GameState.self)),
             GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+            GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
           ]
 
           public private(set) var resultMap: ResultMap
@@ -3282,8 +4253,8 @@ public final class GetLastTurnQuery: GraphQLQuery {
             self.resultMap = unsafeResultMap
           }
 
-          public init(id: GraphQLID, state: GameState? = nil, openedSession: OpenedSession? = nil) {
-            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+          public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+            self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
           }
 
           public var __typename: String {
@@ -3304,6 +4275,15 @@ public final class GetLastTurnQuery: GraphQLQuery {
             }
           }
 
+          public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+            get {
+              return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+            }
+            set {
+              resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
+            }
+          }
+
           public var state: GameState? {
             get {
               return resultMap["state"] as? GameState
@@ -3319,6 +4299,52 @@ public final class GetLastTurnQuery: GraphQLQuery {
             }
             set {
               resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+            }
+          }
+
+          public var inviteCode: String {
+            get {
+              return resultMap["inviteCode"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "inviteCode")
+            }
+          }
+
+          public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+            public static let possibleTypes = ["PlayerQueuePosition"]
+
+            public static let selections: [GraphQLSelection] = [
+              GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+              GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+            ]
+
+            public private(set) var resultMap: ResultMap
+
+            public init(unsafeResultMap: ResultMap) {
+              self.resultMap = unsafeResultMap
+            }
+
+            public init(number: Int) {
+              self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+            }
+
+            public var __typename: String {
+              get {
+                return resultMap["__typename"]! as! String
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "__typename")
+              }
+            }
+
+            public var number: Int {
+              get {
+                return resultMap["number"]! as! Int
+              }
+              set {
+                resultMap.updateValue(newValue, forKey: "number")
+              }
             }
           }
 
@@ -3376,7 +4402,7 @@ public final class GetLastTurnQuery: GraphQLQuery {
 
 public final class MeQuery: GraphQLQuery {
   public let operationDefinition =
-    "query me {\n  me {\n    __typename\n    connectedGame {\n      __typename\n      id\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n    }\n    connectedGamePosition\n    username\n    createdGame {\n      __typename\n      id\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n    }\n  }\n}"
+    "query me {\n  me {\n    __typename\n    connectedGame {\n      __typename\n      id\n      playersOrderedByPosition {\n        __typename\n        number\n      }\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n      inviteCode\n    }\n    connectedGamePosition\n    username\n    createdGame {\n      __typename\n      id\n      playersOrderedByPosition {\n        __typename\n        number\n      }\n      state\n      turns {\n        __typename\n        lastRoll\n      }\n      openedSession {\n        __typename\n        id\n        createdAt\n      }\n      inviteCode\n    }\n  }\n}"
 
   public init() {
   }
@@ -3479,9 +4505,11 @@ public final class MeQuery: GraphQLQuery {
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
           GraphQLField("state", type: .scalar(GameState.self)),
           GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
           GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+          GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -3490,8 +4518,8 @@ public final class MeQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+        public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
         }
 
         public var __typename: String {
@@ -3509,6 +4537,15 @@ public final class MeQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+          get {
+            return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
           }
         }
 
@@ -3536,6 +4573,52 @@ public final class MeQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+          }
+        }
+
+        public var inviteCode: String {
+          get {
+            return resultMap["inviteCode"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "inviteCode")
+          }
+        }
+
+        public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+          public static let possibleTypes = ["PlayerQueuePosition"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(number: Int) {
+            self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var number: Int {
+            get {
+              return resultMap["number"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "number")
+            }
           }
         }
 
@@ -3630,9 +4713,11 @@ public final class MeQuery: GraphQLQuery {
         public static let selections: [GraphQLSelection] = [
           GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
           GraphQLField("id", type: .nonNull(.scalar(GraphQLID.self))),
+          GraphQLField("playersOrderedByPosition", type: .list(.nonNull(.object(PlayersOrderedByPosition.selections)))),
           GraphQLField("state", type: .scalar(GameState.self)),
           GraphQLField("turns", type: .list(.nonNull(.object(Turn.selections)))),
           GraphQLField("openedSession", type: .object(OpenedSession.selections)),
+          GraphQLField("inviteCode", type: .nonNull(.scalar(String.self))),
         ]
 
         public private(set) var resultMap: ResultMap
@@ -3641,8 +4726,8 @@ public final class MeQuery: GraphQLQuery {
           self.resultMap = unsafeResultMap
         }
 
-        public init(id: GraphQLID, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil) {
-          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }])
+        public init(id: GraphQLID, playersOrderedByPosition: [PlayersOrderedByPosition]? = nil, state: GameState? = nil, turns: [Turn]? = nil, openedSession: OpenedSession? = nil, inviteCode: String) {
+          self.init(unsafeResultMap: ["__typename": "Game", "id": id, "playersOrderedByPosition": playersOrderedByPosition.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, "state": state, "turns": turns.flatMap { (value: [Turn]) -> [ResultMap] in value.map { (value: Turn) -> ResultMap in value.resultMap } }, "openedSession": openedSession.flatMap { (value: OpenedSession) -> ResultMap in value.resultMap }, "inviteCode": inviteCode])
         }
 
         public var __typename: String {
@@ -3660,6 +4745,15 @@ public final class MeQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue, forKey: "id")
+          }
+        }
+
+        public var playersOrderedByPosition: [PlayersOrderedByPosition]? {
+          get {
+            return (resultMap["playersOrderedByPosition"] as? [ResultMap]).flatMap { (value: [ResultMap]) -> [PlayersOrderedByPosition] in value.map { (value: ResultMap) -> PlayersOrderedByPosition in PlayersOrderedByPosition(unsafeResultMap: value) } }
+          }
+          set {
+            resultMap.updateValue(newValue.flatMap { (value: [PlayersOrderedByPosition]) -> [ResultMap] in value.map { (value: PlayersOrderedByPosition) -> ResultMap in value.resultMap } }, forKey: "playersOrderedByPosition")
           }
         }
 
@@ -3687,6 +4781,52 @@ public final class MeQuery: GraphQLQuery {
           }
           set {
             resultMap.updateValue(newValue?.resultMap, forKey: "openedSession")
+          }
+        }
+
+        public var inviteCode: String {
+          get {
+            return resultMap["inviteCode"]! as! String
+          }
+          set {
+            resultMap.updateValue(newValue, forKey: "inviteCode")
+          }
+        }
+
+        public struct PlayersOrderedByPosition: GraphQLSelectionSet {
+          public static let possibleTypes = ["PlayerQueuePosition"]
+
+          public static let selections: [GraphQLSelection] = [
+            GraphQLField("__typename", type: .nonNull(.scalar(String.self))),
+            GraphQLField("number", type: .nonNull(.scalar(Int.self))),
+          ]
+
+          public private(set) var resultMap: ResultMap
+
+          public init(unsafeResultMap: ResultMap) {
+            self.resultMap = unsafeResultMap
+          }
+
+          public init(number: Int) {
+            self.init(unsafeResultMap: ["__typename": "PlayerQueuePosition", "number": number])
+          }
+
+          public var __typename: String {
+            get {
+              return resultMap["__typename"]! as! String
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "__typename")
+            }
+          }
+
+          public var number: Int {
+            get {
+              return resultMap["number"]! as! Int
+            }
+            set {
+              resultMap.updateValue(newValue, forKey: "number")
+            }
           }
         }
 

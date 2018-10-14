@@ -8,16 +8,16 @@
 
 import UIKit
 
-final class SessionWaitViewConroller: UIViewController {
+final class JoinSessionViewConroller: UIViewController {
     
-    weak var delegate: SessionWaitViewConrollerDelegate?
+    weak var delegate: JoinSessionViewConrollerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        hideKeyboardWhenTappedAround() 
     }
 }
 
-protocol SessionWaitViewConrollerDelegate: class {
+protocol JoinSessionViewConrollerDelegate: class {
     
 }

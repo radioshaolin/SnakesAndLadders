@@ -10,7 +10,8 @@ import UIKit
 
 final class GameViewController: UIViewController {
     /// Injected properties
-    var services: Services?
+    var gameId: String?
+    var nickname: String?
     weak var delegate: GameViewControllerDelegate?
     
     @IBOutlet weak var gameView: UIView!
@@ -23,9 +24,7 @@ final class GameViewController: UIViewController {
         delegate?.didGameOver()
     }
     
-
     @IBAction func turnButtonTapped(_ sender: Any) {
-//        let dice = Int(arc4random_uniform(6) + 1)
         let rollNumber = Int.random(in: 1..<7)
         diceNumber.text = String(rollNumber)
         delegate?.didMakeTurn(number: rollNumber)
@@ -34,6 +33,7 @@ final class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         winnerView.isHidden = true
+        currentPlayerLabel.text = nickname
     }
 }
 

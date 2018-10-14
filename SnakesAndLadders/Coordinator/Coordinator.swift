@@ -14,9 +14,5 @@ public protocol Coordinator: class {
     var services: Services { get }
 }
 
-public extension Coordinator {
-    var rootNavigationController: UINavigationController {
-        return UIApplication.shared.keyWindow!.rootViewController as! UINavigationController
-    }
-}
+
 
