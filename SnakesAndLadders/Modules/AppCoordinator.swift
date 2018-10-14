@@ -7,13 +7,16 @@
 //
 
 import UIKit
+import Apollo
 
 /// The AppCoordinator is our first coordinator
 /// In this example the AppCoordinator as a rootViewController
 class AppCoordinator: RootViewCoordinator {
     /// Window to manage
     let window: UIWindow?
-    
+
+    let apollo = ApolloClient(url: URL(string: "https://snakes-n-ladders.ga")!)
+
     // MARK: - Properties
     var services: Services
     var rootViewController: UINavigationController {
@@ -48,11 +51,18 @@ class AppCoordinator: RootViewCoordinator {
     }
     
     func showPlayerRegistrationViewController() {
-        let playerRegistrationVC = PlayerRegistrationViewController.fromStoryboard()
+        let playerRegistrationVC = PlayerRegistrationViewController.fromStoryboard(name: "PlayerRegistrationViewController")
         playerRegistrationVC.services = services
         playerRegistrationVC.delegate = self
         navigationController.isNavigationBarHidden = false
         rootViewController.pushViewController(playerRegistrationVC, animated: true)
+    }
+    
+    func showSessionWaitViewConroller() {
+        let sessionWaitVC = SessionWaitViewConroller.fromStoryboard(name: "PlayerRegistrationViewController")
+        sessionWaitVC.delegate = self
+        navigationController.isNavigationBarHidden = false
+        rootViewController.pushViewController(sessionWaitVC, animated: true)
     }
     
      func showGameViewController() {
@@ -89,10 +99,26 @@ extension AppCoordinator: GameViewControllerDelegate {
 extension AppCoordinator: PlayerRegistrationViewControllerDelegate {
     func didAdd(user: User) {
         services.dataService.users.append(user)
+        let playerInput = PlayerInput.init(username: user.nickname)
+        apollo.perform(mutation: RegisterMutation.init(input: playerInput))
+        apollo.perform(mutation: CreateGameMutation.init())
+
     }
     
     func didStartGame(_ playerRegistrationVC: PlayerRegistrationViewController) {
         rootViewController.popViewController(animated: true)
         showGameViewController()
     }
+    
+    private func buildHeaderRequest(userName: String) -> URLRequest {
+        let url = URL(string: "https://snakes-n-ladders.ga")!
+        var request = URLRequest(url: url)
+        request.setValue("\(userName)", forHTTPHeaderField: "X-PlayerId")
+        request.httpMethod = "POST"
+        return request
+    }
+}
+
+extension AppCoordinator: SessionWaitViewConrollerDelegate {
+    
 }

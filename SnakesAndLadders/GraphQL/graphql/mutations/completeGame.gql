@@ -1,5 +1,5 @@
-mutation createGame{
-    createGame{
+mutation completeGame($input: [PlayersGamePositionsInput]){
+    completeGame(input: $input){
         id
         connectedPlayers{
             connectedGamePosition

@@ -1,8 +1,25 @@
 mutation joinGame($id: ID){
     joinGame(id: $id){
         id
-        players{
+        connectedPlayers{
+            connectedGamePosition
+            username
+        }
+        host{
+            connectedGamePosition
+            username
+        }
+        state
+        turns{
+            lastRoll
+            nextPlayer{
+                connectedGamePosition
+                username
+            }
+        }
+        openedSession{
             id
+            createdAt
         }
     }
 }

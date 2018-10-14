@@ -1,0 +1,28 @@
+mutation register($input: PlayerInput!){
+    register(input: $input){
+        connectedGame{
+            id
+            state
+            turns{
+                lastRoll
+            }
+            openedSession{
+                id
+                createdAt
+            }
+        }
+        connectedGamePosition
+        username
+        createdGame{
+            id
+            state
+            turns{
+                lastRoll
+            }
+            openedSession{
+                id
+                createdAt
+            }
+        }
+    }
+}

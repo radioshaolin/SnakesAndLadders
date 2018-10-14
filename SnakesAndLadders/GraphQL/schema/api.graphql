@@ -1,20 +1,76 @@
 
+enum ExtensionCode {
+  entityArgumentInvalid
+  databaseError
+  applicationBuildError
+  applicationRunError
+  httpRequestFailed
+  httpResponseParseFailed
+  unauthorized
+  gameNotFound
+  playerNotFound
+}
+
 type Game {
   id: ID!
-  players: [Player]
+  connectedPlayers: [Player!]
+  host: Player!
+  state: GameState
+  turns: [Turn!]
+  openedSession: Session
+}
+
+enum GameState {
+  waitingForPlayers
+  inProgress
+  completed
+  closed
 }
 
 type Mutation {
-  createGame: Game
-  joinGame(id: ID): Game
-  createPlayer: Player!
+  createGame: Game!
+  startGame: Game!
+  joinGame(id: ID): Game!
+  completeGame(input: [PlayersGamePositionsInput]): Game!
+  startSession: Session!
+  register(input: PlayerInput!): Player!
+  makeTurn(roll: Int): Turn!
 }
 
 type Player {
-  id: ID!
-  game: Game
+  connectedGame: Game
+  connectedGamePosition: Int
+  username: ID!
+  createdGame: Game
+}
+
+type PlayerGamePosition {
+  username: ID!
+  number: Int!
+}
+
+input PlayerInput {
+  username: String!
+}
+
+input PlayersGamePositionsInput {
+  number: Int!
+  username: String!
 }
 
 type Query {
-  players(gameId: ID): [Player]
+  me: Player!
+  getLastGameWaitingForPlayers: Game
+  getLastTurn: Turn!
+}
+
+type Session {
+  id: ID!
+  createdAt: String!
+  currentGame: Game
+}
+
+type Turn {
+  lastRoll: Int
+  nextPlayer: Player!
 }

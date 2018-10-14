@@ -1,0 +1,25 @@
+query getLastTurn {
+    getLastTurn{
+        lastRoll
+        nextPlayer{
+            connectedGame{
+                id
+                state
+                openedSession{
+                    id
+                    createdAt
+                }
+            }
+            connectedGamePosition
+            username
+            createdGame{
+                id
+                state
+                openedSession{
+                    id
+                    createdAt
+                }
+            }
+        }
+    }
+}

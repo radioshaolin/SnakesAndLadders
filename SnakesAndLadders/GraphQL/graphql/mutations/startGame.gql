@@ -1,5 +1,5 @@
-mutation createGame{
-    createGame{
+mutation startGame{
+    startGame{
         id
         connectedPlayers{
             connectedGamePosition

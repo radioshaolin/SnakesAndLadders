@@ -6,6 +6,7 @@ target 'SnakesAndLadders' do
   use_frameworks!
 
   pod 'Apollo'
+  pod 'Alamofire', '~> 4.7'
 
   # Pods for SnakesAndLadders
 

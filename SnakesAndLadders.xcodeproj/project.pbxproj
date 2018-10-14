@@ -21,10 +21,23 @@
 		D54085B2216FE180004BDE8C /* AppCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54085B1216FE180004BDE8C /* AppCoordinator.swift */; };
 		D54085C1216FF468004BDE8C /* PlayerRegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */; };
 		D54085C3216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */; };
-		D5C87C302172906700ACA6D7 /* Int+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C87C2F2172906700ACA6D7 /* Int+Random.swift */; };
+		D5C9E8872172AB92008266B1 /* SessionWaitViewConroller.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C9E8862172AB92008266B1 /* SessionWaitViewConroller.swift */; };
+		D5C9E8972172C26E008266B1 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5C9E8962172C26E008266B1 /* API.swift */; };
 		D5D519072170BA5F0049E6AC /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */; };
 		F59DA2A421723DFB001ADF33 /* GraphQL in Resources */ = {isa = PBXBuildFile; fileRef = F59DA2A321723DFB001ADF33 /* GraphQL */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		D5C9E88D2172BFB1008266B1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 7;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		06F85A0C929ECC6617EE820F /* Pods_SnakesAndLadders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnakesAndLadders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -45,7 +58,8 @@
 		D54085B1216FE180004BDE8C /* AppCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppCoordinator.swift; sourceTree = "<group>"; };
 		D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRegistrationViewController.swift; sourceTree = "<group>"; };
 		D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerRegistrationViewController.storyboard; sourceTree = "<group>"; };
-		D5C87C2F2172906700ACA6D7 /* Int+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Int+Random.swift"; sourceTree = "<group>"; };
+		D5C9E8862172AB92008266B1 /* SessionWaitViewConroller.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionWaitViewConroller.swift; sourceTree = "<group>"; };
+		D5C9E8962172C26E008266B1 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
 		F59DA2A321723DFB001ADF33 /* GraphQL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GraphQL; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -91,6 +105,7 @@
 		D51E185D21720355008FA108 /* Registration */ = {
 			isa = PBXGroup;
 			children = (
+				D5C9E8862172AB92008266B1 /* SessionWaitViewConroller.swift */,
 				D54085C0216FF468004BDE8C /* PlayerRegistrationViewController.swift */,
 				D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */,
 			);
@@ -109,6 +124,7 @@
 		D5408584216FD3B8004BDE8C = {
 			isa = PBXGroup;
 			children = (
+				D5C9E8962172C26E008266B1 /* API.swift */,
 				D540858F216FD3B8004BDE8C /* SnakesAndLadders */,
 				D540858E216FD3B8004BDE8C /* Products */,
 				67580CC30F6E541CD2FD4612 /* Pods */,
@@ -149,7 +165,6 @@
 		D54085B5216FE41B004BDE8C /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				D54085B1216FE180004BDE8C /* AppCoordinator.swift */,
 				D5408590216FD3B8004BDE8C /* AppDelegate.swift */,
 				D54085AD216FE110004BDE8C /* DataServices.swift */,
 			);
@@ -159,6 +174,7 @@
 		D54085B6216FE435004BDE8C /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				D54085B1216FE180004BDE8C /* AppCoordinator.swift */,
 				D51E185F21720368008FA108 /* Game */,
 				D51E185D21720355008FA108 /* Registration */,
 				D51E185C2172034D008FA108 /* Home */,
@@ -180,7 +196,6 @@
 			isa = PBXGroup;
 			children = (
 				D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */,
-				D5C87C2F2172906700ACA6D7 /* Int+Random.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -192,12 +207,13 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D540859F216FD3B9004BDE8C /* Build configuration list for PBXNativeTarget "SnakesAndLadders" */;
 			buildPhases = (
+				D5C9E8952172C1E4008266B1 /* Apollo Codegen */,
 				1A769FBEBC993707F98577A0 /* [CP] Check Pods Manifest.lock */,
-				F59DA2A021723B08001ADF33 /* Apollo Codegen */,
 				D5408589216FD3B8004BDE8C /* Sources */,
 				D540858A216FD3B8004BDE8C /* Frameworks */,
 				D540858B216FD3B8004BDE8C /* Resources */,
 				264FF1C7EFA9B146C7552063 /* [CP] Embed Pods Frameworks */,
+				D5C9E88D2172BFB1008266B1 /* CopyFiles */,
 			);
 			buildRules = (
 			);
@@ -283,10 +299,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -294,7 +312,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F59DA2A021723B08001ADF33 /* Apollo Codegen */ = {
+		D5C9E8952172C1E4008266B1 /* Apollo Codegen */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -310,7 +328,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}/${TARGET_NAME}\"\n../node_modules/.bin/apollo-codegen download-schema \"https://api.snakes-n-ladders.ga\" --output schema.json/\n\n../node_modules/.bin/apollo-codegen generate $(find ./GraphQL -name '*.gql') --schema schema.json --output \"${SRCROOT}/${TARGET_NAME}/GraphQL/API.swift\"\n";
+			shellScript = "cd \"${SRCROOT}/${TARGET_NAME}\"\n../node_modules/.bin/apollo-codegen download-schema \"https://api.snakes-n-ladders.ga\" --output schema.json/\n\n../node_modules/.bin/apollo-codegen generate $(find ./GraphQL -name '*.gql') --schema schema.json --output \"${SRCROOT}/${TARGET_NAME}/GraphQL/API.swift\"\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -321,14 +339,15 @@
 			files = (
 				D51E18572171EA23008FA108 /* GameViewController.swift in Sources */,
 				D54085B2216FE180004BDE8C /* AppCoordinator.swift in Sources */,
-				D5C87C302172906700ACA6D7 /* Int+Random.swift in Sources */,
 				D5408593216FD3B8004BDE8C /* HomeViewController.swift in Sources */,
 				D54085C1216FF468004BDE8C /* PlayerRegistrationViewController.swift in Sources */,
 				D5408591216FD3B8004BDE8C /* AppDelegate.swift in Sources */,
 				D54085AC216FE0D0004BDE8C /* Coordinator.swift in Sources */,
 				D54085B0216FE14B004BDE8C /* RootViewCoordinator.swift in Sources */,
+				D5C9E8972172C26E008266B1 /* API.swift in Sources */,
 				D54085AE216FE110004BDE8C /* DataServices.swift in Sources */,
 				D5D519072170BA5F0049E6AC /* UIViewController+Storyboard.swift in Sources */,
+				D5C9E8872172AB92008266B1 /* SessionWaitViewConroller.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

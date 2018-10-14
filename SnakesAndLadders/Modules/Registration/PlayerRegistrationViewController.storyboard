@@ -18,13 +18,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your nickname" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="JNM-58-vSq">
-                                <rect key="frame" x="38" y="114" width="299" height="30"/>
+                                <rect key="frame" x="38" y="318.5" width="299" height="30"/>
                                 <nil key="textColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters" autocorrectionType="no" enablesReturnKeyAutomatically="YES" textContentType="nickname"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvB-ee-0Ua">
-                                <rect key="frame" x="171.5" y="174" width="32" height="30"/>
+                                <rect key="frame" x="171.5" y="378.5" width="32" height="30"/>
                                 <state key="normal" title="Next"/>
                                 <connections>
                                     <action selector="nextButtonTapped:" destination="q1d-wx-b2b" eventType="touchUpInside" id="crd-PY-mpO"/>
@@ -89,13 +89,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="ocz-wu-eZn" firstAttribute="bottom" secondItem="IWu-KM-z4k" secondAttribute="bottom" id="2hB-it-Ibc"/>
+                            <constraint firstItem="JNM-58-vSq" firstAttribute="centerY" secondItem="8G5-fL-Pyb" secondAttribute="centerY" id="3HU-0H-gUb"/>
                             <constraint firstItem="JNM-58-vSq" firstAttribute="centerX" secondItem="8G5-fL-Pyb" secondAttribute="centerX" id="6Kl-U8-iSL"/>
                             <constraint firstItem="JNM-58-vSq" firstAttribute="width" secondItem="8G5-fL-Pyb" secondAttribute="height" multiplier="13:29" id="K3J-fo-9AM"/>
                             <constraint firstItem="ocz-wu-eZn" firstAttribute="trailing" secondItem="IWu-KM-z4k" secondAttribute="trailing" id="Npa-wp-IKv"/>
                             <constraint firstItem="ocz-wu-eZn" firstAttribute="top" secondItem="IWu-KM-z4k" secondAttribute="top" constant="44" id="QAB-GT-sDQ"/>
                             <constraint firstItem="ocz-wu-eZn" firstAttribute="leading" secondItem="IWu-KM-z4k" secondAttribute="leading" id="U5g-sz-u3w"/>
                             <constraint firstItem="jvB-ee-0Ua" firstAttribute="top" secondItem="JNM-58-vSq" secondAttribute="bottom" constant="30" id="Z9W-aa-IMG"/>
-                            <constraint firstItem="JNM-58-vSq" firstAttribute="top" secondItem="IWu-KM-z4k" secondAttribute="top" constant="94" id="kJD-9o-5jf"/>
                             <constraint firstItem="jvB-ee-0Ua" firstAttribute="centerX" secondItem="8G5-fL-Pyb" secondAttribute="centerX" id="rUy-GV-qi2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="IWu-KM-z4k"/>
@@ -113,6 +113,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U1d-LM-q9G" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="76" y="-183.05847076461771"/>
+        </scene>
+        <!--Session Wait View Conroller-->
+        <scene sceneID="TUn-0h-4de">
+            <objects>
+                <viewController storyboardIdentifier="SessionWaitViewConroller" id="GDh-v9-3Fn" customClass="SessionWaitViewConroller" customModule="SnakesAndLadders" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8dB-YT-OMU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <viewLayoutGuide key="safeArea" id="C5W-Hy-4cM"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OV7-S8-cHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="860" y="-183"/>
         </scene>
     </scenes>
 </document>

@@ -1,8 +1,0 @@
-mutation createPlayer{
-    createPlayer{
-        id
-        game{
-            id
-        }
-    }
-}

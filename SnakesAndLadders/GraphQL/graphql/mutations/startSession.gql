@@ -1,0 +1,25 @@
+mutation startSession{
+    startSession{
+        id
+        createdAt
+        currentGame{
+            id
+            connectedPlayers{
+                connectedGamePosition
+                username
+            }
+            host{
+                connectedGamePosition
+                username
+            }
+            state
+            turns{
+                lastRoll
+                nextPlayer{
+                    connectedGamePosition
+                    username
+                }
+            }
+        }
+    }
+}

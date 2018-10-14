@@ -1,5 +1,5 @@
-mutation createGame{
-    createGame{
+query getLastGameWaitingForPlayers {
+    getLastGameWaitingForPlayers{
         id
         connectedPlayers{
             connectedGamePosition

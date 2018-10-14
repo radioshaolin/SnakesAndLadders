@@ -1,0 +1,28 @@
+query me {
+    me{
+        connectedGame{
+            id
+            state
+            turns{
+                lastRoll
+            }
+            openedSession{
+                id
+                createdAt
+            }
+        }
+        connectedGamePosition
+        username
+        createdGame{
+            id
+            state
+            turns{
+                lastRoll
+            }
+            openedSession{
+                id
+                createdAt
+            }
+        }
+    }
+}

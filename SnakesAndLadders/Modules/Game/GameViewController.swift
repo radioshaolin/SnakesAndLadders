@@ -42,6 +42,4 @@ protocol GameViewControllerDelegate: class {
     func didGameOver()
 }
 
-enum GameState {
-    
-}
+
