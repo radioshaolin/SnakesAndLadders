@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5FF29BC177B78B405BD61FDD /* Pods_SnakesAndLadders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06F85A0C929ECC6617EE820F /* Pods_SnakesAndLadders.framework */; };
 		D5408591216FD3B8004BDE8C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5408590216FD3B8004BDE8C /* AppDelegate.swift */; };
 		D5408593216FD3B8004BDE8C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5408592216FD3B8004BDE8C /* HomeViewController.swift */; };
 		D5408596216FD3B8004BDE8C /* HomeViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D5408594216FD3B8004BDE8C /* HomeViewController.storyboard */; };
@@ -20,9 +21,13 @@
 		D54085C3216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */; };
 		D54085C5216FFA09004BDE8C /* PlayerRegistrationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = D54085C4216FFA09004BDE8C /* PlayerRegistrationCoordinator.swift */; };
 		D5D519072170BA5F0049E6AC /* UIViewController+Storyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */; };
+		F59DA2A421723DFB001ADF33 /* GraphQL in Resources */ = {isa = PBXBuildFile; fileRef = F59DA2A321723DFB001ADF33 /* GraphQL */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		06F85A0C929ECC6617EE820F /* Pods_SnakesAndLadders.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SnakesAndLadders.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		945E1A78AF1F402AF80172DC /* Pods-SnakesAndLadders.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnakesAndLadders.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders.debug.xcconfig"; sourceTree = "<group>"; };
+		D48954C1021F1C71D3F3B74B /* Pods-SnakesAndLadders.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SnakesAndLadders.release.xcconfig"; path = "Pods/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders.release.xcconfig"; sourceTree = "<group>"; };
 		D540858D216FD3B8004BDE8C /* SnakesAndLadders.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SnakesAndLadders.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D5408590216FD3B8004BDE8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D5408592216FD3B8004BDE8C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +43,7 @@
 		D54085C2216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PlayerRegistrationViewController.storyboard; sourceTree = "<group>"; };
 		D54085C4216FFA09004BDE8C /* PlayerRegistrationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerRegistrationCoordinator.swift; sourceTree = "<group>"; };
 		D5D519062170BA5F0049E6AC /* UIViewController+Storyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Storyboard.swift"; sourceTree = "<group>"; };
+		F59DA2A321723DFB001ADF33 /* GraphQL */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GraphQL; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,17 +51,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FF29BC177B78B405BD61FDD /* Pods_SnakesAndLadders.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		67580CC30F6E541CD2FD4612 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				945E1A78AF1F402AF80172DC /* Pods-SnakesAndLadders.debug.xcconfig */,
+				D48954C1021F1C71D3F3B74B /* Pods-SnakesAndLadders.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		B578C72B4232FB0448D2CF3A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				06F85A0C929ECC6617EE820F /* Pods_SnakesAndLadders.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		D5408584216FD3B8004BDE8C = {
 			isa = PBXGroup;
 			children = (
 				D540858F216FD3B8004BDE8C /* SnakesAndLadders */,
 				D540858E216FD3B8004BDE8C /* Products */,
+				67580CC30F6E541CD2FD4612 /* Pods */,
+				B578C72B4232FB0448D2CF3A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -70,6 +96,7 @@
 		D540858F216FD3B8004BDE8C /* SnakesAndLadders */ = {
 			isa = PBXGroup;
 			children = (
+				F59DA2A321723DFB001ADF33 /* GraphQL */,
 				D54085B5216FE41B004BDE8C /* Core */,
 				D54085AA216FE0BA004BDE8C /* Coordinator */,
 				D54085B6216FE435004BDE8C /* ViewControllers */,
@@ -135,9 +162,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D540859F216FD3B9004BDE8C /* Build configuration list for PBXNativeTarget "SnakesAndLadders" */;
 			buildPhases = (
+				1A769FBEBC993707F98577A0 /* [CP] Check Pods Manifest.lock */,
+				F59DA2A021723B08001ADF33 /* Apollo Codegen */,
 				D5408589216FD3B8004BDE8C /* Sources */,
 				D540858A216FD3B8004BDE8C /* Frameworks */,
 				D540858B216FD3B8004BDE8C /* Resources */,
+				264FF1C7EFA9B146C7552063 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -187,6 +217,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D54085C3216FF4BC004BDE8C /* PlayerRegistrationViewController.storyboard in Resources */,
+				F59DA2A421723DFB001ADF33 /* GraphQL in Resources */,
 				D540859B216FD3B9004BDE8C /* LaunchScreen.storyboard in Resources */,
 				D5408598216FD3B9004BDE8C /* Assets.xcassets in Resources */,
 				D5408596216FD3B8004BDE8C /* HomeViewController.storyboard in Resources */,
@@ -194,6 +225,63 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1A769FBEBC993707F98577A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-SnakesAndLadders-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		264FF1C7EFA9B146C7552063 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Apollo/Apollo.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Apollo.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SnakesAndLadders/Pods-SnakesAndLadders-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F59DA2A021723B08001ADF33 /* Apollo Codegen */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Apollo Codegen";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${SRCROOT}/${TARGET_NAME}\"\napollo-codegen download-schema \"https://api.snakes-n-ladders.ga\" --output schema.json\n\napollo-codegen generate $(find ./GraphQL -name '*.gql') --schema schema.json --output \"${SRCROOT}/${TARGET_NAME}/GraphQL/API.swift\"\n\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D5408589216FD3B8004BDE8C /* Sources */ = {
@@ -352,10 +440,11 @@
 		};
 		D54085A0216FD3B9004BDE8C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 945E1A78AF1F402AF80172DC /* Pods-SnakesAndLadders.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VX2YJU32EW;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/SnakesAndLadders/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -370,10 +459,11 @@
 		};
 		D54085A1216FD3B9004BDE8C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = D48954C1021F1C71D3F3B74B /* Pods-SnakesAndLadders.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = VX2YJU32EW;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/SnakesAndLadders/Other/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

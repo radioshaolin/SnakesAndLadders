@@ -1,0 +1,6 @@
+# source: https://api.snakes-n-ladders.ga/
+# timestamp: Sat Oct 13 2018 17:14:10 GMT+0300 (Eastern European Summer Time)
+
+type Query {
+  test: String
+}
